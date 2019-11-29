@@ -1,10 +1,11 @@
 import React,{useRef,useState,useEffect} from 'react'
-import BoxHeader from '../components/BoxHeader'
+import Footer from '../components/Footer'
 import backgr from '../assets/image/header.png'
 import close from '../assets/image/close.png'
 import axios from 'axios'
 import Modal from 'react-modal';
 import { BrowserRouter, Route, Link,useParams } from "react-router-dom";
+import renderHTML from 'react-render-html';
 
 const customStyles = {
     content : {
@@ -43,13 +44,13 @@ function Header(props){
  }
  useEffect(()=>{
      getIntro()
+
  },[])
- function scrollToBox () {
-  //box.current.scrollIntoView({ behavior: "smooth" })
-}
-let {id}=useParams()
-console.log(id)
+var a=props.match.params.id
+console.log(a)
+
 return(
+    <div className='Main'>
 <div  className='header'>
 <Modal      
         closeTimeoutMS={1000}
@@ -67,8 +68,11 @@ return(
 
     <img style={{width:'100%'}} src={backgr}></img>
 <button onClick={()=>openModal()}  className='btn-xemthem'>Xem thêm</button>
-<BoxHeader sc={props.sc} scb={props.scb} scproject={props.scproject} ></BoxHeader>
+
 </div>
+{renderHTML('')}
+<Footer></Footer>
+ </div>
 )
 }
 export default Header

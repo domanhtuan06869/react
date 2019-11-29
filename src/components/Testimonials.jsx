@@ -7,7 +7,7 @@ import avatar from '../assets/image/anht.jpg'
 function Testimonisls(props){
 
 return(
-<div  className='testimonisls'>
+<div ref={props.refs}  className='testimonisls'>
     
     <p  id='testimonisls-p'>Testimonials</p>
    <h2 id='testimonisls-h'>Giving Your Awesome Business Fresh Start With US</h2>

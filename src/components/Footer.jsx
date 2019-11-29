@@ -1,4 +1,4 @@
-import React,{useRef} from 'react'
+import React,{useRef,useEffect} from 'react'
 import BoxHeader from '../components/BoxHeader'
 import { Button } from 'reactstrap';
 import kyc from '../assets/image/kyc.png'
@@ -6,9 +6,13 @@ import kycgoogle from '../assets/image/kycg.png'
 import kycfb from '../assets/image/facebookkyc.png'
 import kyctwitter from '../assets/image/witer.png'
 function Footer(props){
+ 
+    useEffect(()=>{
+
+    },[])
 
 return(
-<div className='div-footer'>
+<div ref={props.refs} className='div-footer'>
 <div className='footer-item'>
     <img src={kyc}></img>
     <p style={{color:'gray'}}>KYC SOLUTIONS J.S.C <br/>

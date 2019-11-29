@@ -1,4 +1,4 @@
-import React ,{ useRef, useEffect}from 'react'
+import React ,{ useRef, useEffect,useState}from 'react'
 import BoxHeader from './BoxHeader'
 import { Button } from 'reactstrap';
 import doitac from '../assets/image/doitac1.png'
@@ -9,13 +9,17 @@ import "react-animated-slider/build/horizontal.css";
 import "normalize.css/normalize.css";
 import "../assets/css/style.css";
 import "../assets/css/slider-animations.css";
+import axios from 'axios'
 
-const scrollToRef = (ref) => window.scrollTo({top:4000,
-behavior:'smooth'})   
-
-
-function Nav(props){
-
+function Slide(props){
+  const [slide,setSlide]=useState([])
+  async function getSlide(){
+    const result=await axios('/getSlides')
+         setSlide(result.data)
+  }
+useEffect(()=>{
+getSlide()
+},[])
     const content = [
         {
           title: "Vulputate Mollis Ultricies Fermentum Parturient",
@@ -77,16 +81,16 @@ function Nav(props){
 return(
 
 <div   className='body-product' >
-<Slider className="slider-wrapper"  autoplay={1000}>
-      {content.map((item, index) => (
-      <div  className='body-product' >
+<Slider className="slider-wrapper"  autoplay={4000}>
+      {slide.map((item, index) => (
+      <div key={item._id} className='body-product' >
       <div className='product'>
-      <p>#1 about</p>
-      <h3>Sản phẩm của KYC là NOSA</h3>
-      <p id='product-content'>Sản phẩm nổi bật của KYC là Nosa – Mạng kết nối nông sản toàn quốc, với sứ mệnh xây dựng bản đồ số hóa sản phẩm nông nghiệp để kết nối cung, cầu trên toàn lãnh thổ Việt Nam với mục tiêu mang lại thu nhập cao hơn cho người nông dân và sản phẩm đa dạng, chất lượng hơn cho người tiêu dùng</p>
+      <p>{item.Stt}</p>
+      <h3>{item.Title}</h3>
+      <p id='product-content'>{item.Content}</p>
       </div>
       <div className='product'>
-      <img className='img-slide' src={product}></img>
+      <img  className='img-slide' src={product}></img>
       
       </div>
   
@@ -99,4 +103,4 @@ return(
 
 )
 }
-export default Nav
+export default Slide

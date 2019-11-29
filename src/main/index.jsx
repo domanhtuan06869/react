@@ -1,10 +1,12 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect ,useState} from 'react'
 import { useMediaQuery } from 'react-responsive'
 import Header from '../components/Header'
 import Body from '../components/Body'
+import News from '../components/News'
 import Testimonials from '../components/Testimonials'
 import Boxfrom from '../components/Boxform'
 import Footer from '../components/Footer'
+import axios from 'axios'
 
 
 const Desktop = ({ children }) => {
@@ -25,10 +27,23 @@ const Mobile = ({ children }) => {
 
 
 function Index(props) {
+  const [name,setName]=useState('hisfsdsd')
   var count = 0
+
+  const messagesEndRef=useRef(null)
+  const box=useRef(null)
+  const project=useRef(null)
   window.addEventListener('keydown', downHandler);
   window.addEventListener('keyup', upHandler);
-
+  function scrollToBottom () {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+  }
+  function scrollToBox () {
+    box.current.scrollIntoView({ behavior: "smooth" })
+  }
+  function scrollToProject () {
+    project.current.scrollIntoView({ behavior: "smooth" })
+  }
   useEffect(() => {
 
 
@@ -38,6 +53,13 @@ function Index(props) {
 
     };
   }, []);
+  useEffect(()=>{
+
+  },[])
+  async function data(){
+ const result= await axios('/body')
+   setName(result.data)
+  }
   async function downHandler({ key }) {
 
     if (key == 'ArrowDown') {
@@ -85,38 +107,42 @@ function Index(props) {
         count--
       }
     }
+   
   }
 
+
   return (
-    <body className='Main'>
+    <div className='Main'>
       <Desktop>
-        <Header ></Header>
-        <Body></Body>
-        <Testimonials></Testimonials>
-        <Boxfrom></Boxfrom>
-        <Footer></Footer>
+        <Header sc={scrollToBottom} scb={scrollToBox}  scproject={scrollToProject} ></Header>
+        <Body  refs={project}></Body>
+        <News></News>
+        <Testimonials refs={box}></Testimonials>
+        <Boxfrom ></Boxfrom>
+        <Footer refs={messagesEndRef}></Footer>
       </Desktop>
 
       <Tablet>
-        <Header>
-        </Header >
-        <Body></Body>
-        <Testimonials></Testimonials>
-        <Boxfrom></Boxfrom>
-        <Footer></Footer>
+      <Header sc={scrollToBottom} scb={scrollToBox}  scproject={scrollToProject} ></Header>
+        <Body  refs={project}></Body>
+        <News></News>
+        <Testimonials refs={box}></Testimonials>
+        <Boxfrom ></Boxfrom>
+        <Footer refs={messagesEndRef}></Footer>
 
       </Tablet>
 
       <Mobile>
-        <Header></Header>
-        <Body></Body>
-        <Testimonials></Testimonials>
-        <Boxfrom></Boxfrom>
-        <Footer></Footer>
+      <Header sc={scrollToBottom} scb={scrollToBox}  scproject={scrollToProject} ></Header>
+        <Body  refs={project}></Body>
+        <News></News>
+        <Testimonials refs={box}></Testimonials>
+        <Boxfrom ></Boxfrom>
+        <Footer refs={messagesEndRef}></Footer>
       </Mobile>
 
 
-    </body>
+    </div>
   )
 }
 export default Index

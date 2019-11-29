@@ -25,6 +25,24 @@ header {
 .page {
   margin-top: 20px;
 }
+.previousButton {
+  left: 0;
+  -webkit-transform: rotate(180deg) translateY(calc(50% + 0px));
+  transform: rotate(180deg) translateY(calc(50% + 0px));
+}
+.previousButton,
+.nextButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: url("http://svgshare.com/i/41_.svg") no-repeat center center /
+    16px;
+  width: 32px;
+  height: 32px;
+  text-indent: -9999px;
+  cursor: pointer;
+}
 
 header section {
   max-width: 1300px;
@@ -33,7 +51,24 @@ header section {
   padding: 20px;
   background: #ffd800;
 }
+@media (max-width: 768px){
+  .previousButton,
+  .nextButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: url("http://svgshare.com/i/41_.svg") no-repeat center center /
+      16px;
+    width: 32px;
+    height: 32px;
+    text-indent: -9999px;
+    cursor: pointer;
+  }
+}
+@media (min-width: 768px) and (max-width: 992px) {
 
+}
 @media (max-width: 1515px) {
   header section {
     max-width: 100%;
@@ -59,7 +94,7 @@ header section a {
 }
 
 .slide {
-  height: 30vh;
+  height: 60vh;
   background-size: cover !important;
 }
 
@@ -73,10 +108,53 @@ header section a {
   left: 0;
 }
 
-.previousButton,
+
+
+@media (min-width: 992px) and (max-width: 1800px){
+  .previousButton,
+  .nextButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: url("http://svgshare.com/i/41_.svg") no-repeat center center /
+      16px;
+    width: 32px;
+    height: 32px;
+    text-indent: -9999px;
+    cursor: pointer;
+  }
+
+}
+
+
+
+/*ipad*/
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : portrait) 
+and (-webkit-min-device-pixel-ratio: 1) {
+  .previousButton,
 .nextButton {
   position: absolute;
-  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: url("http://svgshare.com/i/41_.svg") no-repeat center center /
+    16px;
+  width: 32px;
+  height: 32px;
+  text-indent: -9999px;
+  cursor: pointer;
+  top: 30%;
+}
+}
+/*ipad pro*/
+@media only screen and (min-device-width: 1024px) and (max-device-height: 1366px) and (-webkit-min-device-pixel-ratio: 2)  and (orientation: portrait)  {
+  .previousButton,
+.nextButton {
+  position: absolute;
+  top: 20%;
   transform: translateY(-50%);
   z-index: 10;
   background: url("http://svgshare.com/i/41_.svg") no-repeat center center /
@@ -86,6 +164,7 @@ header section a {
   text-indent: -9999px;
   cursor: pointer;
 }
+}
 
 .previousButton:hover,
 .nextButton:hover {
@@ -94,6 +173,7 @@ header section a {
 }
 
 .previousButton {
+
   left: 0;
   -webkit-transform: rotate(180deg) translateY(calc(50% + 0px));
   transform: rotate(180deg) translateY(calc(50% + 0px));
@@ -112,7 +192,9 @@ header section a {
 }
 
 
-
+.pagination{
+  margin-top: -100px
+}
  .product> h3 {
  
 
@@ -128,14 +210,14 @@ header section a {
 @media (min-height: 600px) {
   .slider-wrapper,
   .slide {
-    height: calc(105vh - 75px);
+    height: calc(100vh - 75px);
   }
 }
 
 @media (max-width: 767px) {
   .slider-wrapper,
   .slide {
-    height: calc(80vh - 75px);
+    height: calc(90vh - 75px);
   }
 }
 
@@ -149,4 +231,30 @@ header section a {
     .product h3 {
     font-size: 32px;
   }
+}
+@media (min-height: 900px) and (min-width: 1800px){
+
+  .slider-wrapper {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    max-width: 75%;
+    margin: 0 auto;
+  
+  }
+.previousButton,
+  .nextButton {
+    position: absolute;
+    top: 30%;
+   
+    z-index: 10;
+    background: url("http://svgshare.com/i/41_.svg") no-repeat center center /
+      16px;
+    width: 32px;
+    height: 32px;
+    text-indent: -9999px;
+    cursor: pointer;
+  }
+  
+  
 }
