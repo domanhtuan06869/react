@@ -27,7 +27,7 @@ const Mobile = ({ children }) => {
 
 
 function Index(props) {
-  const [name,setName]=useState('hisfsdsd')
+
   var count = 0
 
   const messagesEndRef=useRef(null)
@@ -56,21 +56,18 @@ function Index(props) {
   useEffect(()=>{
 
   },[])
-  async function data(){
- const result= await axios('/body')
-   setName(result.data)
-  }
+
   async function downHandler({ key }) {
 
-    if (key == 'ArrowDown') {
-      if (count == 0) {
+    if (key === 'ArrowDown') {
+      if (count === 0) {
         count++
         window.scrollTo({
           top: 1000,
           behavior: 'auto'
         })
       }
-      else if (count == 1) {
+      else if (count === 1) {
         count++
         window.scrollTo({
           top: 1800,
@@ -86,20 +83,20 @@ function Index(props) {
     }
   }
   async function upHandler({ key }) {
-    if (key == 'ArrowUp') {
-      if (count == 1) {
+    if (key === 'ArrowUp') {
+      if (count === 1) {
         count--
         window.scrollTo({
           top: 50,
           behavior: 'auto'
         })
-      } else if (count == 2) {
+      } else if (count === 2) {
         window.scrollTo({
           top: 1000,
           behavior: 'auto'
         })
         count--
-      } else if (count == 3) {
+      } else if (count === 3) {
         window.scrollTo({
           top: 1700,
           behavior: 'auto'
@@ -116,8 +113,8 @@ function Index(props) {
       <Desktop>
         <Header sc={scrollToBottom} scb={scrollToBox}  scproject={scrollToProject} ></Header>
         <Body  refs={project}></Body>
-        <News></News>
-        <Testimonials refs={box}></Testimonials>
+        <News refs={box}></News>
+        <Testimonials></Testimonials>
         <Boxfrom ></Boxfrom>
         <Footer refs={messagesEndRef}></Footer>
       </Desktop>

@@ -52,6 +52,10 @@
     .hr-news{
         max-width: 1400px;
     }
+    .render-news{
+        max-width:1100px;
+         margin:0 auto
+        }
 
     .header {
         height: 1000px;
@@ -132,8 +136,10 @@
         width: 24%;
         height: 80%; 
         margin: 4px; 
-    
-
+     }
+     .page-news{
+         width: 100%;
+        margin-top: 15%;
      }
      .img-news{
          cursor: pointer;
@@ -275,6 +281,11 @@
         float: right;
 
     }
+    .render-news{
+    max-width:900px;
+     margin:0 auto
+    }
+   
      .news-box{
          display:inline-block;
         width: 24%;
@@ -283,6 +294,11 @@
     
 
      }
+         .page-news{
+        width: 100%;
+       
+       margin-top: 8%;
+    }
      .img-news{
          cursor: pointer;
        width: 100%;  

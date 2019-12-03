@@ -53,6 +53,7 @@ async function postContact(){
 async function checkValidate(){
     var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
     var phone = vnf_regex.test(number)
+    var checkemail=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
     if(name==''){setCheckName('không để trống tên')}
     if(email==''){setCheckEmail('không để trống email')}
     if(number==''){setCheckPhone('không để trống số điện thoại')}
@@ -60,6 +61,8 @@ async function checkValidate(){
     if(email!=''){setCheckEmail(null)}
     if(number!=''){setCheckPhone(null)}
     if(name==''||email==''||number==''){    
+    }else if(checkemail==false){
+        setCheckEmail('Email viết chưa đúng kiểu')
     }else if(phone==false){
         setCheckPhone('Số điện thoại chưa đúng kiểu')
     }else{

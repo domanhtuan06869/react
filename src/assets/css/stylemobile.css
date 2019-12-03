@@ -1,6 +1,10 @@
 /*Mobile*/
 
 @media (max-width: 768px) {
+    .render-news{
+        padding: 2%;
+        margin: 2%
+    }
     .loading {
         max-width: 100px;
         margin-top: 60%;
@@ -11,10 +15,6 @@
     }
     .header {
         height: 300px;
-      /*  background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-image: url('../image/header.png');*/
         position: relative;
     }
     .box-header {
@@ -81,6 +81,11 @@
         margin: 4px; 
     
 
+     }
+     .page-news{
+        width: 100%;
+        text-align: center;
+        margin-top: 100%
      }
      .img-news{
          cursor: pointer;
@@ -217,15 +222,13 @@
         max-width: 100px;
         margin-top: 20%;
     }
-    .-hr {
-      
+    .page-news{
+        width: 100%;
+        text-align: center;
+       margin-top: 1%;
     }
     .header {
         height: 800px;
-      /*  background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-image: url('../image/header.png');*/
         position: relative;
     }
     .box-header {
@@ -247,6 +250,8 @@
     }
     .img-box-header {
         margin-top: 10%;
+        width: 19%;
+        height: 17%;
     }
     .btn-xemthem {
         position: absolute;
@@ -400,6 +405,11 @@
 
 /*ipad*/
 @media only screen and (min-device-width: 1024px) and (max-device-height: 1366px) and (-webkit-min-device-pixel-ratio: 2)  and (orientation: portrait) {
+    .page-news{
+        width: 100%;
+        text-align: center;
+       margin-top: 3%;
+    }
     .loading {
         margin: 0 auto;
         max-width: 100px;
@@ -408,10 +418,6 @@
 
     .header {
         height: 800px;
-       /* background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-image: url('../image/header.png');*/
         position: relative;
     }
     .box-header {
@@ -593,13 +599,17 @@ and (-webkit-min-device-pixel-ratio: 1) {
         max-width: 100px;
         margin-top: 20%;
     }
-
+    .page-news{
+        width: 100%;
+        text-align: center;
+       margin-top: 1%;
+    }
+    .render-news{
+        padding: 1%;
+    }
     .header {
+
         height: 600px;
-     /*   background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-image: url('../image/header.png');*/
         position: relative;
     }
     .box-header {
@@ -621,6 +631,8 @@ and (-webkit-min-device-pixel-ratio: 1) {
     }
     .img-box-header {
         margin-top: 5%;
+        width: 21%;
+        height: 17%;
     }
     .btn-xemthem {
         position: absolute;

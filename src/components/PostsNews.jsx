@@ -12,18 +12,19 @@ const Posts = ({ posts, loading,isModal }) => {
       
         {posts.map((post,index)=> (
         
-            <div className='news-box'>
-<Link  style={{color:'gray'}} to={{pathname:`/getlist/${post._id}`}} >
+            <div key={post._id} className='news-box'>
+<Link  style={{color:'gray'}} to={{pathname:`/news/${post._id}`}} >
 <img  src={post.image} className='img-news'></img>
-
 </Link>
 
               
               <div className='box-title'>
-                 <h1 onClick={()=>{isModal(index,post.content)}}  className='title-news'>{post.title.slice(0, 50)}</h1>
+              <Link  to={{pathname:`/news/${post._id}`}} >
+              <h1 className='title-news'>{post.title.length<=70?post.title:post.title.slice(0, 70)+'...'}</h1>
+              </Link>
                 </div>
                 <div className='box-title'>
-                <p style={{textAlign:'justify',float:'left',color:'gray'}}>{post.description.slice(0, 100)}</p>
+                <p style={{textAlign:'justify',float:'left',color:'gray'}}>{post.description.length<=100?post.title:post.description.slice(0, 100)+'...'}</p>
                 </div>
                
                </div>

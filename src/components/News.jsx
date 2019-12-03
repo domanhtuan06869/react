@@ -3,10 +3,11 @@ import axios from 'axios'
 import renderHTML from 'react-render-html';
 import PostsNew from './PostsNews';
 import Pagination from '../components/Pagination';
-
+import { useDispatch, useSelector } from "react-redux";
 import Modal from 'react-modal';
 import close from '../assets/image/close.png'
 import { BrowserRouter, Route, Link } from "react-router-dom";
+
 const customStyles = {
     content : {
       width                 : '70%',
@@ -22,67 +23,44 @@ const customStyles = {
     }
   };
 function News(props){
-  const [news,setNews]=useState(null)
-  const [posts, setPosts] = useState([]);
+  const listnews= useSelector(state => state.reducerNews.data);
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(3);
-  const [index,setIndex]=useState(0)
 
-  const pt=useRef(null)
 
-async function fetchPosts(){
+
+
+async function getNews() {
   setLoading(true);
-  const result = await axios.get('/getNews');
- setPosts(result.data);
- console.log(result.data)
-  setLoading(false);
-}
-
+  const result=await axios('/getNews')
+   dispatch({ type: "FETCH_NEWS",
+  data: result.data})
+  setLoading(false);           
+ }
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = listnews.slice(indexOfFirstPost, indexOfLastPost);
  
   // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
 
-async function getNews(){
-   const result=await axios('/getNews')
-  // console.log(result.data.content)
-   setNews(result.data.content)
-
-}
 useEffect(()=>{
- //  getNews()
-    fetchPosts();
+    getNews()
 },[])
-const[showModal,setShowModal]=useState(false)
-async function openModal(index,content) {
-  setIndex(index)
-  setNews(content)
-  setShowModal(true)
-
-
-}
-
-
-function closeModal() {
-  setShowModal(false)
-}
 
 return(
 <div ref={props.refs} className='news'>
 <hr className='hr-news'></hr>
   <div >
-
-<Link  style={{color:'gray'}} to={{pathname:'/getlist/dsgsdgsd',a:news}} >Tin tức</Link>
-
-    <PostsNew posts={currentPosts} loading={loading} isModal={openModal} />
+<p ref={props.refs} style={{color:'gray'}}>Tin tức</p>
+    <PostsNew posts={currentPosts} loading={loading}  />
       <Pagination
         postsPerPage={postsPerPage}
-        totalPosts={posts.length}
+        totalPosts={listnews.length}
         paginate={paginate}
       />
   

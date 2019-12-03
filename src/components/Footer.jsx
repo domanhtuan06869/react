@@ -20,17 +20,17 @@ return(
 </div>
 <div className='footer-item'>
  <h3>Out adress</h3>
- <p style={{color:'gray'}}>Suite 502, 5th Floor, No.03 Chua Lang St, Dong Da Dist, Ha Noi, Viet Nam</p>
+ <p style={{color:'gray',fontSize:14}}>Suite 502, 5th Floor, No.03 Chua Lang St, Dong Da Dist, Ha Noi, Viet Nam</p>
 </div>
 
 <div className='footer-item'>
     <h3>Email contact</h3>
-    <p style={{color:'gray'}}>Suite 502, 5th Floor, No.03 Chua Lang St, Dong Da Dist, Ha Noi, Viet Nam</p>
+    <p style={{color:'gray',fontSize:14}}>Suite 502, 5th Floor, No.03 Chua Lang St, Dong Da Dist, Ha Noi, Viet Nam</p>
 </div>
 <hr></hr>
 <div className='sp-footer'>
 <div id='sp-footer-item1' className='sp-footer-item'>
-2019 - 2018 ©  <span style={{color:'blue'}}> ExplicitConcepts</span>. All rights reserved.
+2019 - 2018 ©  <span style={{color:'blue',fontSize:14}}> ExplicitConcepts</span>. All rights reserved.
 </div>
 <div id='sp-footer-item' className='sp-footer-item'>
 <img className='img-spfooter' src={kycgoogle}></img>

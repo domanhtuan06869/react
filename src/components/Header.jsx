@@ -48,7 +48,7 @@ function Header(props){
   //box.current.scrollIntoView({ behavior: "smooth" })
 }
 let {id}=useParams()
-console.log(id)
+
 return(
 <div  className='header'>
 <Modal      
