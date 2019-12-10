@@ -144,6 +144,7 @@
      .img-news{
          cursor: pointer;
        width: 100%;  
+       height: 63%;
      }
     .testimonisls {
         background-image: url('../image/testimonisls.png');
@@ -236,16 +237,20 @@
     }
     .footer-item {
         height: 59%;
-        width: 25%;
+        width: 23%;
         display: inline-block;
-        margin-left: 5px;
+        margin-left: 10px;
         margin-top: 2%;
+    }
+    .footer-item>p{
+        width: 90%;
     }
     .sp-footer {
         width: 100%;
     }
     .sp-footer-item {
         display: inline-block;
+      
     }
     #sp-footer-item1 {
         float: left;
@@ -290,18 +295,18 @@
          display:inline-block;
         width: 24%;
         height: 80%; 
-        margin: 4px; 
+        padding: 10px;
     
 
      }
-         .page-news{
+       .page-news{
         width: 100%;
-       
-       margin-top: 8%;
+         margin-top: 8%;
     }
      .img-news{
          cursor: pointer;
-       width: 100%;  
+         width: 100%;  
+         height: 60%;
      }
     .header {
         height: 800px;
@@ -463,6 +468,9 @@
         display: inline-block;
         margin-left: 5px;
         margin-top: 2%;
+    }
+    .footer-item>p{
+        width: 90%;
     }
     .sp-footer {
         width: 100%;

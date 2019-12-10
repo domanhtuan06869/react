@@ -29,8 +29,7 @@ function Header(props){
   }
  
  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-   // subtitle.style.color = '#f00';
+
   }
  
  function closeModal() {
@@ -39,14 +38,12 @@ function Header(props){
  async function getIntro(){
      const result = await axios('/getIntroduction')
      setIntro(result.data.content)
-    // console.log(result.data.content)
+
  }
  useEffect(()=>{
      getIntro()
  },[])
- function scrollToBox () {
-  //box.current.scrollIntoView({ behavior: "smooth" })
-}
+
 let {id}=useParams()
 
 return(

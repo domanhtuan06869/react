@@ -13,7 +13,7 @@ const Posts = ({ posts, loading,isModal }) => {
         {posts.map((post,index)=> (
         
             <div key={post._id} className='news-box'>
-<Link  style={{color:'gray'}} to={{pathname:`/news/${post._id}`}} >
+<Link  style={{color:'gray',width:'100%',height:'100%'}} to={{pathname:`/news/${post._id}`}} >
 <img  src={post.image} className='img-news'></img>
 </Link>
 

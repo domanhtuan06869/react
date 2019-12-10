@@ -7,11 +7,19 @@ import axios from 'axios';
 import { BallBeat } from 'react-pure-loaders';
 import Pagenew  from '../src/main/pagenew'
 import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter, Route, Link,Switch } from "react-router-dom";
+import Admin from '../src/componentsAdmin/Admin'
+import EditAdmin from '../src/componentsAdmin/EditAdmin'
+import Login from '../src/componentsAdmin/Login'
+import AddAdmin from '../src/componentsAdmin/AddAdmin'
+import withAuth from '../src/componentsAdmin/withAuth'
+import withAuthLogin from '../src/componentsAdmin/withAuthLogin'
+import Contact from '../src/componentsAdmin/Contact'
+import NewsAdmin from '../src/componentsAdmin/NewsAdmin'
 
-import { BrowserRouter, Route, Link } from "react-router-dom";
+
 function App() {
-    const content = useSelector(state => state);
-    const dispatch = useDispatch();
+
     async function fetchPosts(){
         setLoading(true);
         const result = await axios.get('/getNews');
@@ -38,6 +46,12 @@ function App() {
                    <BrowserRouter>
                    <Route exact path="/" component={Index} />
                       <Route exact path="/news/:id" component={Pagenew}></Route>
+                      <Route exact path="/admin" component={Admin}></Route>
+                      <Route exact path="/add" component={withAuth(AddAdmin)}></Route>
+                      <Route exact path="/edit" component={withAuth(EditAdmin)}></Route>
+                      <Route exact path="/contact" component={withAuth(Contact)}></Route>
+                      <Route exact path="/login" component={withAuthLogin(Login)}></Route>
+                      <Route exact path="/newsAdmin" component={withAuth(NewsAdmin)}></Route>
                  </BrowserRouter>
             
 

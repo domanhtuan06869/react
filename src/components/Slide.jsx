@@ -28,7 +28,7 @@ getSlide()
 return(
 
 <div   className='body-product' >
-<Slider className="slider-wrapper"  autoplay={4000}>
+<Slider className="slider-wrapper"  autoplay={3000}>
       {listSlider.map((item, index) => (
       <div key={item._id} className='body-product' >
       <div className='product'>
