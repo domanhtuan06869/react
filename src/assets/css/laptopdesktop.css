@@ -17,6 +17,7 @@
 }
 .mdclose:hover{
     background-color: antiquewhite;
+  
 }
 
 .ReactModal__Overlay--after-open{
@@ -37,6 +38,19 @@
 .box-title{
    width: 100%;
 }
+
+.icon-edit:hover{
+background-color: #ccc;
+border-radius: 2;
+
+
+}
+.delete-icon:hover{
+    background-color:darksalmon;
+    border-radius: 2;
+    padding: 2
+    
+    }
 /*LAPTOP-DESKTOPS*/
 
 @media (min-height: 900px) and (min-width: 1800px) {
@@ -83,7 +97,7 @@
     }
     .btn-xemthem {
         position: absolute;
-        top: 55%;
+        top: 60%;
         left: 19.3%;
         width: 15%;
         height: 4%;
@@ -282,6 +296,7 @@
         width: 100%;
         text-align: center
     }
+
     .pagination{
         float: right;
 
@@ -334,7 +349,7 @@
     }
     .btn-xemthem {
         position: absolute;
-        top: 52%;
+        top: 59%;
         left: 19.3%;
         width: 15%;
         height: 4%;

@@ -3,16 +3,50 @@ import React,{useRef,useState,useEffect} from 'react'
 import axios from 'axios'
 import Modal from 'react-modal';
 import { Link } from "react-router-dom";
+import DataTable from 'react-data-table-component';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+var data;
 
 function Contact(props){
   const [listContact,setListContact]=useState([])
+  const [loading, setLoading] = useState(false);
+
+  const columns = [
+    {
+      name: 'Name',
+      selector: 'name',
+      sortable: true,
+    },
+    {
+      name: 'Email',
+      selector: 'email',
+      sortable: true,
+      right: true,
+    },
+    {
+      name: 'Number',
+      selector: 'number',
+      sortable: true,
+      right: true,
+    },
+    {
+      name: 'Xóa',
+      button: true,
+      cell: (list) => <DeleteIcon onClick={()=>deleteItem({id:list._id},'/deleteContact').then(()=>getContact())} className='delete-icon'></DeleteIcon>,
+    },
+  ];
 
  useEffect(()=>{
 getContact()
+props.setColor()
  },[])
 async function getContact(){
+  setLoading(true)
   const result=await axios('/getContact')
   setListContact(result.data)
+  data=result.data
+  setLoading(false)
 }
 async function deleteItem(data,url){
   await axios({
@@ -30,46 +64,63 @@ async function deleteItem(data,url){
     alert('error')
   })
 }
+function convertArrayOfObjectsToCSV(array) {
+let dttr=[{name:'',email:'',number:''}]
+  let result;
+
+  const columnDelimiter = ',';
+  const lineDelimiter = '\n';
+  const keys = Object.keys(dttr[0]);
+
+  result = '';
+  result += keys.join(columnDelimiter);
+  result += lineDelimiter;
+
+  array.forEach(item => {
+    let ctr = 0;
+    keys.forEach(key => {
+      if (ctr > 0) result += columnDelimiter;
+
+      result += item[key];
+      
+      ctr++;
+    });
+    result += lineDelimiter;
+  });
+
+  return result;
+}
+function downloadCSV(array) {
+  const link = document.createElement('a');
+  let csv = convertArrayOfObjectsToCSV(array);
+  if (csv == null) return;
+
+  const filename = 'export.csv';
+
+  if (!csv.match(/^data:text\/csv/i)) {
+    csv = `data:text/csv;charset=utf-8,${csv}`;
+  }
+
+  link.setAttribute('href', encodeURI(csv));
+  link.setAttribute('download', filename);
+  link.click();
+}
+const Export = ({ onExport }) => (
+  <button className='btn btn-info' onClick={e => onExport(e.target.value)}>Export</button>
+);
+const actionsMemo = React.useMemo(() => <Export onExport={() => downloadCSV(data)} />, []);
 return(
 <div>
-<ul>
-          <div class="d-flex flex-row">
-          <div class="p-2"><Link to="/add">Thêm</Link></div>
-            <div class="p-2"><Link to="/edit">Sửa Xóa</Link></div>
-            <div class="p-2"><Link to="/newsAdmin">Tin tức</Link></div>
 
-          </div>
-        </ul>
-        <div>
-          <h1>Liên hệ</h1>
-        <table className="border table-bordered table">
-          <thead>
-            <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Number Phone</th>
-            <th></th>
-            </tr>
-         
-          </thead>
-          <tbody style={{width:'100%'}}>
-            
-              {listContact.map((list,index)=>(
-                <tr style={{width:'100%'}} key={list._id}>
-                           <td >{list.name}</td>
-                           <td>{list.email}</td>
-                           <td style={{width:'40%'}}>{list.number}</td>
-                        
-                           <td ><button onClick={()=>deleteItem({id:list._id},'/deleteContact').then(()=>getContact())} className="btn btn-danger"> Xóa  </button></td>
-                           </tr>
-              ))}
-   
-
-           
-          </tbody>
-        </table>
-        </div>
-        <div></div>
+    
+        <DataTable
+        title="Liên hệ"
+        columns={columns}
+        data={listContact}
+        actions={actionsMemo}
+        pagination
+        progressPending={loading}
+      />
 </div>
 )
 }

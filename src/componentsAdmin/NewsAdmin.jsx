@@ -4,9 +4,13 @@ import 'react-quill/dist/quill.snow.css';
 import ReactQuill, { Quill } from 'react-quill';
 import axios from 'axios'
 import Modal from 'react-modal';
-import { Link} from "react-router-dom";
+import Add from '@material-ui/icons/Add';
 import qs from 'qs'
-
+import DataTable from 'react-data-table-component';
+import IconButton from '@material-ui/core/IconButton';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit, faDeaf } from '@fortawesome/free-solid-svg-icons'
+import DeleteIcon from '@material-ui/icons/Delete';
 var toolbarOptions = [
     ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
     ['blockquote', 'code-block'],
@@ -39,7 +43,7 @@ const customStyles = {
       transform             : 'translate(-50%, -50%)',
       opacity: '80%',
       background:'linear-gradient(to right, #ffffff 29%, #ffffff 96%)',
-      
+      marginTop:'5%'      
     }
   };
 function Contact(props){
@@ -52,22 +56,41 @@ function Contact(props){
     const[description,setDescription]=useState('')
     const[content,setContent]=useState('')
     const [image,setUrlImage]=useState('')
+    const[action,setAction]=useState()
+    const [loading, setLoading] = useState(false);
 
  useEffect(()=>{
 getNews()
+props.setColor()
  },[])
 async function getNews(){
+  setLoading(true)
   const result=await axios('/getNews')
   setListNews(result.data)
+  setLoading(false);
 }
-
-function openModal(id,title,description,content,url) {
+const actions = (
+  <IconButton title='Thêm' style={{marginRight:50}} onClick={()=>openModal('Thêm')}
+    color="primary"
+  >
+    < Add />
+  </IconButton>
+);
+function openModal(action,id,title,description,content,image) {
+  if(action==='Thêm'){
+    setAction('Thêm')
+    setShowModal(true)
+  }else{
+    setAction('Sửa')
+    setShowModal(true) 
     setIdNews(id)
     setTitle(title)
     setDescription(description)
     setContent(content)
-    setUrlImage(url)
-    setShowModal(true)
+    setUrlImage(image)
+
+  }
+    
 
 
 
@@ -75,9 +98,19 @@ function openModal(id,title,description,content,url) {
 function closeModal() {
     setShowModal(false)
   }
-  async function update(data,url){
+  const secondStyle = `
+  background: blue;
+  height: 20px;
+  width: 20px;
+  :hover {
+    cursor: pointer;
+    background: red;
+`
+
+
+  async function insertupdate(data,url,method){
     await axios({
-        method: 'put',
+        method:method ,
         url: url,
         data: qs.stringify(data),
         headers: {
@@ -104,6 +137,43 @@ function closeModal() {
       alert('error')
     })
   }
+  const columns = [
+    {
+      name: 'Title',
+      selector: 'title',
+      sortable: true,
+      maxWidth:'400px'
+    },
+    {
+      name: 'Description',
+      selector: 'description',
+      sortable: true,
+      maxWidth:'330px'
+    },
+    {
+      name: 'Image',
+      selector: 'image',
+      sortable: true,
+      maxWidth:'340px'
+   
+    },
+    {
+  
+      name: 'Sửa  Xóa',
+      sortable: true,
+      button:true,
+  
+      
+      cell: (list) => <div>
+   <FontAwesomeIcon className='icon-edit'  onClick={()=>openModal('Sửa',list._id,list.title,list.description,list.content,list.image)} size="lg"  title="Sửa" icon={faEdit} >
+    
+   </FontAwesomeIcon>
+   <DeleteIcon onClick={()=>deleteItem({id:list._id},'/deleteNews').then(()=>getNews())} className='delete-icon' titleAccess='Xóa'></DeleteIcon>
+      </div>
+    },
+  
+  
+  ];
 return(
 <div>
 <Modal      
@@ -115,8 +185,9 @@ return(
           contentLabel="Example Modal"
         >
           
-          <img className='mdclose' src={close} style={{float:'right'}} onClick={()=>closeModal()}></img>
-          <form style={{ height: 950, maxWidth: '100%', margin: 10 }}>
+          <img className='mdclose' src={close} style={{float:'right',width:20,height:20}} onClick={()=>closeModal()}></img>
+          <h2>{action==='Thêm'?'Thêm bản tin':'Sửa bản tin'}</h2>
+          <form style={{ height: 900, maxWidth: '100%', margin: 10 }}>
             <div class="form-group">
               <label for="title">title</label>
               <input
@@ -167,54 +238,37 @@ return(
               </ReactQuill>
 
             </div>
-          </form>
-        
-          <button onClick={()=>{
-            update({id:idNews,
-                 content:content,
+            <div style={{marginTop:80}} class="form-group"> 
+            <button onClick={()=>{
+              action==='Thêm'?
+             insertupdate({
+               content:content,
+              description:description,
+              title: title,
+              image:image},'/postNews','post').then(()=>getNews()) :insertupdate({
+                id:idNews,
+                content:content,
                 description:description,
-                title:title,
-                image:image},'/updateNews').then(()=>getNews())
-            }} className="btn btn-info"> Sửa</button>
+                title: title,
+                image:image},'/updateNews','put').then(()=>getNews())
+            }} className="btn btn-info">{action}</button>
+            </div>
+          </form>
+ 
+       
         </Modal>
-<ul>
-          <div class="d-flex flex-row">
-          <div class="p-2"><Link to="/add">Thêm</Link></div>
-            <div class="p-2"><Link to="/edit">Sửa Xóa</Link></div>
-            <div class="p-2"><Link to="/contact">Liên hệ</Link></div>
 
-          </div>
-        </ul>
         <div>
-          <h1>Liên hệ</h1>
-        <table className="border table-bordered table">
-          <thead>
-            <tr>
-            <th>title</th>
-            <th>description</th>
-            <th>url image</th>
-            <th></th>
-            </tr>
-         
-          </thead>
-          <tbody style={{width:'100%'}}>
-            
-              {listNews.map((list,index)=>(
-                <tr style={{width:'100%'}} key={list._id}>
-                           <td >{list.title}</td>
-                           <td>{list.description}</td>
-                           <td style={{width:'40%'}}>{list.image}</td>
-                        
-                           <td ><button onClick={()=>openModal(list._id,list.title,list.description,list.content,list.image,'slider')} className="btn btn-info"> Sửa  </button><button onClick={()=>deleteItem({id:list._id},'/deleteNews').then(()=>getNews())} className="btn btn-danger"> Xóa  </button></td>
-                           </tr>
-              ))}
-   
-
-           
-          </tbody>
-        </table>
+        <h2>Quản lí bản tin</h2>
+          <DataTable
+    progressPending={loading}
+        columns={columns}
+        data={listNews}
+        actions={actions}
+        pagination
+      />
         </div>
-        <div></div>
+     
 </div>
 )
 }

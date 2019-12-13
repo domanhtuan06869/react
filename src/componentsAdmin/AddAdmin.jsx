@@ -65,7 +65,7 @@ export default class Secret extends Component {
     })
       .then(res => {
         if (res.status === 200) {
-          this.props.history.push('/login');
+          this.props.history.push('/admin');
         } else {
           const error = new Error(res.error);
           throw error;
@@ -177,14 +177,7 @@ export default class Secret extends Component {
           <FontAwesomeIcon size="lg" onClick={() => this.logout()} title="Đăng xuất" icon={faSignOutAlt} />
         </div>
 
-        <ul>
-          <div class="d-flex flex-row">
-
-            <div class="p-2"><Link to="/edit">Sửa Xóa</Link></div>
-            <div class="p-2"><Link to="/contact">Liên hệ</Link></div>
-            <div class="p-2"><Link to="/newsAdmin">Tin tức</Link></div>
-          </div>
-        </ul>
+     
         <div class="card card-body" style={{ maxWidth: '100%' }}>
 
           <h1>Đăng bản tin</h1>

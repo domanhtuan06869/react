@@ -38,20 +38,19 @@ function App() {
   
 
     return (
-        loading == true ? < div className='loading' >
+      loading == true ? < div className='loading' >
 
             <BallBeat color={'#123abc'}
                 loading={loading}/>
                 </div > :
                    <BrowserRouter>
+             
                    <Route exact path="/" component={Index} />
-                      <Route exact path="/news/:id" component={Pagenew}></Route>
-                      <Route exact path="/admin" component={Admin}></Route>
-                      <Route exact path="/add" component={withAuth(AddAdmin)}></Route>
-                      <Route exact path="/edit" component={withAuth(EditAdmin)}></Route>
-                      <Route exact path="/contact" component={withAuth(Contact)}></Route>
-                      <Route exact path="/login" component={withAuthLogin(Login)}></Route>
-                      <Route exact path="/newsAdmin" component={withAuth(NewsAdmin)}></Route>
+                   <Route  path="/news/:id" component={Pagenew}></Route>
+                   <Route  path="/login" component={withAuthLogin(Login)}></Route>
+                    <Route  exact path="/admin" component={withAuth(Admin)}></Route>
+                      
+         
                  </BrowserRouter>
             
 

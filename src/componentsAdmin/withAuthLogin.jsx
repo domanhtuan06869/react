@@ -36,7 +36,7 @@ export default function withAuth(ComponentToProtect) {
       if (redirect) {
         return <ComponentToProtect {...this.props}/> ;
       }
-      return  <Redirect to="/add"/>;
+      return  <Redirect to="/admin"/>;
     }
   }
 }
