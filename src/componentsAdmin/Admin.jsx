@@ -3,23 +3,16 @@ import React, { useRef, useEffect ,useState} from 'react'
 import { BrowserRouter,HashRouter,NavLink, Route, Link,Switch } from "react-router-dom";
 import clsx from 'clsx';
 import EditAdmin from '../componentsAdmin/EditAdmin'
-import Login from '../componentsAdmin/Login'
-import AddAdmin from '../componentsAdmin/AddAdmin'
-import withAuth from '../componentsAdmin/withAuth'
-import withAuthLogin from '../componentsAdmin/withAuthLogin'
 import Contact from '../componentsAdmin/Contact'
 import Customer from '../componentsAdmin/Customer'
 import NewsAdmin from '../componentsAdmin/NewsAdmin'
 import Chart from '../componentsAdmin/Chart'
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import LayersIcon from '@material-ui/icons/Layers';
-import AssignmentIcon from '@material-ui/icons/Assignment';
+import Slider from '../componentsAdmin/SliderManager'
+import UpdateInfomation from '../componentsAdmin/UpdateInfomation'
+import UpdateTeams from '../componentsAdmin/UpDateCb'
+
+
+
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -118,14 +111,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-
-
-
-
-
-
-
-
 function Admin(props) {
 
   const classes = useStyles();
@@ -135,7 +120,9 @@ const [colorHome,setColorHome]=useState('blue')
 const[colorContact,setColorContact]=useState('black')
 const [colorNews,setColorNews]=useState('black')
 const [colorCustomer,setColorCustomer]=useState('black')
-
+const [colorSlider,setColorSilder]=useState('black')
+const [colorTeam,setColorTeam]=useState('black')
+const [colorInfo,setColorInfo]=useState('black')
 
 
 
@@ -146,7 +133,7 @@ const [colorCustomer,setColorCustomer]=useState('black')
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
 
   function logout() {
     fetch('/logout', {
@@ -166,16 +153,24 @@ const [colorCustomer,setColorCustomer]=useState('black')
         
       })
     }
- 
+
+
     useEffect(()=>{
+      if(window.outerWidth<=676){
+        setOpen(false)
+      }
     setColorRouter()
     },[])
+
     function setColorRouter(){
       if(props.location.hash==='#/'){
         setColorHome('blue')
         setColorContact('black')
         setColorNews('black')
         setColorCustomer('black')
+        setColorSilder('black')
+        setColorTeam('black')
+
     
       }
      else if(props.location.hash==='#/contact'){
@@ -183,18 +178,57 @@ const [colorCustomer,setColorCustomer]=useState('black')
         setColorHome('black')
         setColorNews('black')
         setColorCustomer('black')
+        setColorSilder('black')
+        setColorTeam('black')
+        setColorInfo('black')
     
       } else if(props.location.hash==='#/newsAdmin'){
         setColorContact('black')
         setColorHome('black')
         setColorNews('blue')
         setColorCustomer('black')
+        setColorSilder('black')
+        setColorTeam('black')
+        setColorInfo('black')
+
         
       } else if(props.location.hash==='#/customer'){
         setColorContact('black')
         setColorHome('black')
         setColorNews('black')
         setColorCustomer('blue')
+        setColorSilder('black')
+        setColorTeam('black')
+        setColorInfo('black')
+
+      }
+      else if(props.location.hash==='#/slider'){
+        setColorContact('black')
+        setColorHome('black')
+        setColorNews('black')
+        setColorCustomer('black')
+        setColorSilder('blue')
+        setColorTeam('black')
+        setColorInfo('black')
+
+      }
+      else if(props.location.hash==='#/updateteam'){
+        setColorContact('black')
+        setColorHome('black')
+        setColorNews('black')
+        setColorCustomer('black')
+        setColorSilder('black')
+        setColorTeam('blue')
+        setColorInfo('black')
+      }
+      else if(props.location.hash==='#/updateinfomation'){
+        setColorContact('black')
+        setColorHome('black')
+        setColorNews('black')
+        setColorCustomer('black')
+        setColorSilder('black')
+        setColorTeam('black')
+        setColorInfo('blue')
       }
     }
 
@@ -203,7 +237,7 @@ const [colorCustomer,setColorCustomer]=useState('black')
         <Typography variant="body2" color="textSecondary" align="center">
           {'Copyright © '}
           <Link color="inherit" href="https://material-ui.com/">
-            Your Website
+           KYC
           </Link>{' '}
           {new Date().getFullYear()}
           {'.'}
@@ -211,6 +245,7 @@ const [colorCustomer,setColorCustomer]=useState('black')
       );
     }
   return (
+    <BrowserRouter>
     <HashRouter>
     <div>
     <div className={classes.root}>
@@ -249,9 +284,10 @@ const [colorCustomer,setColorCustomer]=useState('black')
           </IconButton>
         </div>
         <Divider />
-        <List><MainListItems colorHome={colorHome} colorContact={colorContact} colorNews={colorNews} colorCustomer={colorCustomer}> </MainListItems></List>
+        <List><MainListItems color={{colorHome:colorHome,colorContact:colorContact,
+          colorCustomer:colorCustomer,colorCustomer,colorNews:colorNews,colorSlider:colorSlider}} > </MainListItems></List>
         <Divider />
-        <List><SecondaryListItems></SecondaryListItems></List>
+        <List><SecondaryListItems color={{colorTeam:colorTeam,colorInfo:colorInfo}}></SecondaryListItems></List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
@@ -259,16 +295,19 @@ const [colorCustomer,setColorCustomer]=useState('black')
         <div className="content">
           <Switch>
                     <Route exact path='/' render={(props) => <Chart setColor={setColorRouter} />}/>
-                      <Route  path="/edit" component={EditAdmin}></Route>
-                 
+                    <Route path='/edit' render={(props) => <EditAdmin setColor={setColorRouter} />}/>
                       <Route path='/newsAdmin' render={(props) => <NewsAdmin setColor={setColorRouter} />}/>
                       <Route path='/contact' render={(props) => <Contact setColor={setColorRouter} />}/>
                       <Route path='/customer' render={(props) => <Customer setColor={setColorRouter} />}/>
+                      <Route path='/slider' render={(props) => <Slider setColor={setColorRouter} />}/>
+                      <Route path='/updateinfomation' render={(props) => <UpdateInfomation setColor={setColorRouter} />}/>
+                      <Route path='/updateteam' render={(props) => <UpdateTeams setColor={setColorRouter} />}/>
+
           </Switch>
             
                      
       </div>
-      <Box pt={4}>
+      <Box style={{marginTop:15}} pt={4}>
             <Copyright />
           </Box>
         </Container>
@@ -276,7 +315,8 @@ const [colorCustomer,setColorCustomer]=useState('black')
     </div>
    
     </div>
-  </HashRouter>
+    </HashRouter>
+  </BrowserRouter>
   )
 }
 export default Admin

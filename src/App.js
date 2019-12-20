@@ -44,11 +44,13 @@ function App() {
                 loading={loading}/>
                 </div > :
                    <BrowserRouter>
-             
-                   <Route exact path="/" component={Index} />
+                    <Switch>
+                    <Route exact path="/" component={Index} />
                    <Route  path="/news/:id" component={Pagenew}></Route>
                    <Route  path="/login" component={withAuthLogin(Login)}></Route>
-                    <Route  exact path="/admin" component={withAuth(Admin)}></Route>
+                    <Route   path="/admin" component={withAuth(Admin)}></Route>
+                    </Switch>
+                  
                       
          
                  </BrowserRouter>

@@ -59,7 +59,7 @@ function Index(props) {
 
   async function downHandler({ key }) {
 
-    if (key === 'ArrowDown') {
+    /*if (key === 'ArrowDown') {
       if (count === 0) {
         count++
         window.scrollTo({
@@ -80,10 +80,10 @@ function Index(props) {
           behavior: 'auto'
         })
       }
-    }
+    }*/
   }
   async function upHandler({ key }) {
-    if (key === 'ArrowUp') {
+ /*   if (key === 'ArrowUp') {
       if (count === 1) {
         count--
         window.scrollTo({
@@ -103,7 +103,7 @@ function Index(props) {
         })
         count--
       }
-    }
+    }*/
    
   }
 

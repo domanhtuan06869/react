@@ -218,7 +218,7 @@ export default class Secret extends Component {
 
             </div>
             <div class="form-group">
-              <label for="content">content</label>
+              <label for="content">Content</label>
               <ReactQuill style={{ height: 450, margin: 10 }} id='content' theme="snow"
                 modules={{ toolbar: toolbarOptions }}
                 formats={[

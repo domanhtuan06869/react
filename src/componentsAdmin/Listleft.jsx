@@ -8,20 +8,20 @@ import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import { BrowserRouter,HashRouter,NavLink, Route, Link,Switch } from "react-router-dom";
-var colorindext='blue'
-var colorcontact='black'
-function setcolo(){
-  colorindext='black'
-}
-export const  MainListItems =({colorHome,colorContact,colorNews,colorCustomer})=> (
+import InFoIcon from '@material-ui/icons/Info';
+import Team from '@material-ui/icons/Person';
+
+import { NavLink} from "react-router-dom";
+
+
+export const  MainListItems =({color})=> (
 
   <div>
  
-    <NavLink style={{color:colorHome}}  to='/'>
+    <NavLink style={{color:color.colorHome}}  to='/'>
     <ListItem button >
-    <ListItemIcon >
-     <DashboardIcon />
+    <ListItemIcon color={color.colorHome} >
+     <DashboardIcon  htmlColor={color.colorHome}  lightingColor={color.colorHome}  />
     </ListItemIcon>
     <ListItemText primary="Dashboard" />
   </ListItem>
@@ -29,69 +29,73 @@ export const  MainListItems =({colorHome,colorContact,colorNews,colorCustomer})=
 
 
 
-    <NavLink style={{color:colorNews}} to='/newsAdmin'>
+    <NavLink style={{color:color.colorNews}} to='/newsAdmin'>
   <ListItem button>
     <ListItemIcon>
-      <AssignmentIcon />
+      <AssignmentIcon   htmlColor={color.colorNews}  lightingColor={color.colorNews} />
     </ListItemIcon>
     <ListItemText primary="Quản lí tin tức" />
   </ListItem>
   </NavLink>
 
-
-  <NavLink style={{color:colorContact}} to='/contact'>
+  <NavLink style={{color:color.colorSlider}} to='/slider'>
   <ListItem button>
     <ListItemIcon>
-      <PeopleIcon />
+      <LayersIcon htmlColor={color.colorSlider}  lightingColor={color.colorSlider} />
+    </ListItemIcon>
+    <ListItemText primary="Quản lí Slider" />
+  </ListItem>
+  </NavLink>
+
+  <NavLink style={{color:color.colorContact}} to='/contact'>
+  <ListItem button>
+    <ListItemIcon>
+      <PeopleIcon htmlColor={color.colorContact}  lightingColor={color.colorContact}  />
     </ListItemIcon>
     <ListItemText primary="Liên hệ" />
   </ListItem>
   </NavLink>
 
 
-  <NavLink style={{color:colorCustomer}} to='/customer'>
+  <NavLink style={{color:color.colorCustomer}} to='/customer'>
   <ListItem button>
     <ListItemIcon>
-      <BarChartIcon />
+      <BarChartIcon htmlColor={color.colorCustomer}  lightingColor={color.colorCustomer}  />
     </ListItemIcon>
     <ListItemText primary="Khách hàng" />
   </ListItem>
   </NavLink>
 
-  <ListItem button>
-    <ListItemIcon>
-      <LayersIcon />
-    </ListItemIcon>
-    <ListItemText primary="Integrations" />
-  </ListItem>
+
 </div>
 );
 
 
 
 
-export const SecondaryListItems =()=>(
+export const SecondaryListItems =({color})=>(
 
 <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
+    <ListSubheader inset>Thông tin</ListSubheader>
+    <NavLink style={{color:color.colorInfo}} to='/updateinfomation'>
     <ListItem button>
       <ListItemIcon>
-        <AssignmentIcon />
+        <InFoIcon htmlColor={color.colorInfo}  lightingColor={color.colorInfo} />
       </ListItemIcon>
-      <ListItemText primary="Current month" />
+      <ListItemText primary="Thông tin công ty" />
     </ListItem>
+    </NavLink>
+
+    <NavLink style={{color:color.colorTeam}} to='/updateteam'>
     <ListItem button>
       <ListItemIcon>
-        <AssignmentIcon />
+        <Team htmlColor={color.colorTeam}  lightingColor={color.colorTeam} />
       </ListItemIcon>
-      <ListItemText primary="Last quarter" />
+      <ListItemText primary="Quản lí cán bộ" />
     </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Year-end sale" />
-    </ListItem>
+    </NavLink>
+
+
   </div>
   )
   

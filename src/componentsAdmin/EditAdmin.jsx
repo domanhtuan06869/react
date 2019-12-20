@@ -1,304 +1,122 @@
-import React, { useState,useEffect } from 'react';
-import { BrowserRouter, Route, Link,Switch } from "react-router-dom";
-import {useDispatch, useSelector}from 'react-redux'
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import Modal from 'react-modal';
 import close from '../assets/image/close.png'
 
+
 const customStyles = {
-  content : {
-    width                 : '70%',
-    height                : '70%',
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)',
+  content: {
+    width: '70%',
+    height: '70%',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
     opacity: '80%',
-    background:'linear-gradient(to right, #ffffff 29%, #ffffff 96%)',
-    
+    background: 'linear-gradient(to right, #ffffff 29%, #ffffff 96%)',
+
   }
 };
-export default function Home () {
-  const[showModal,setShowModal]=useState(false)
+export default function Home() {
+  const [showModal, setShowModal] = useState(false)
 
-  const [typemodal,setTypeModal]=useState('')
-
+  const [typemodal, setTypeModal] = useState('')
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(9);
   /*Teams */
-  const[team,SetTeam]=useState([])
-  const [idTeam,setIdTeam]=useState()
-  const[name,setName]=useState('')
-  const[position,setPosition]=useState('')
-  const[descriptionTeam,setDescriptionTeam]=useState('')
-
-  const[avatar,setAvatar]=useState('')
-  ////////// slider
-const[slide,setSlide]=useState([])
-const [idSlide,setIDSlide]=useState()
-const[stt,setStt]=useState('')
-const[titleSlide,setTitleSlide]=useState('')
-const[contentSlide,setContentSlide]=useState('')
-const[urlImageSilde,setUrlImageSilde]=useState('')
-///////////////////////
-/*iconCustomer*/
-const[listcustomer,setListCustomer]=useState([])
-function openModal(id,stt,tile,content,url,type) {
-    setIDSlide(id)
-    setStt(stt)
-    setTitleSlide(tile)
-    setContentSlide(content)
-    setUrlImageSilde(url)
-    setShowModal(true)
-    setTypeModal(type)
-
-
-
-}
-function openModalTeam(id,name,position,title,description,url,type) {
-  setIdTeam(id)
-  setPosition(position)
-  setName(name)
-  setDescriptionTeam(description)
-  setAvatar(url)
-  setShowModal(true)
-  setTypeModal(type)
-
-
-
-}
-
-function afterOpenModal() {
-
-}
-
-function closeModal() {
-  setShowModal(false)
-}
-async function getSlide(){
-  const result=await axios('/getSlides')
-     setSlide(result.data)
-}
-async function getCustomer(){
-  const result=await axios('/getCustomer')
-     setListCustomer(result.data)
-}
-  useEffect(()=>{
-  getSlide()
-  getTeam()
-  getCustomer()
-  },[])
-  
-async function getTeam() {
-  const rs=await axios('/getTeam')
-  SetTeam(rs.data)
-               
- }
- async function update(data,url){
-  await axios({
-    method: 'put',
-    url: url,
-    data: data,
-
-    headers: {
-      'content-type': 'application/json'
-    }
-  }).then((res) => {
-    alert('success')
+  const [team, SetTeam] = useState([])
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = team.slice(indexOfFirstPost, indexOfLastPost);
  
-    setShowModal(false)
-  }).catch(() => {
-    alert('error')
-  })
-}
+  // Change page
+  const paginate = pageNumber => setCurrentPage(pageNumber);
 
-async function deleteItem(data,url){
-  await axios({
-    method: 'delete',
-    url: url,
-    data: data,
+  useEffect(() => {
+    getTeam()
+  }, [])
 
-    headers: {
-      'content-type': 'application/json'
-    }
-  }).then((res) => {
-    alert('success')
-   
-  }).catch(() => {
-    alert('error')
-  })
-}
-  function modal(){
-    if(typemodal==='slider'){
-      return(
-        <Modal      
-        closeTimeoutMS={1000}
-          isOpen={showModal}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-          
-          <img className='mdclose' src={close} style={{float:'right'}} onClick={()=>closeModal()}></img>
-          <div className="form-group">
-          <label for="Stt">Stt</label>
-          <input id="Stt" className="form-control" type="text" onChange={(text)=>setStt(text.target.value)} value={stt}/>
-          </div>
-          <div className="form-group">
-          <label for="Stt">Title</label>
-          <input className="form-control" type="text" onChange={(text)=>setTitleSlide(text.target.value)} value={titleSlide}/>
-          </div>
-          <div className="form-group">
-          <label for="Stt">content</label>
-          <input className="form-control" type="text" onChange={(text)=>setContentSlide(text.target.value)} value={contentSlide}/>
-          </div>
-          <div className="form-group">
-          <label for="Stt">urlImage</label>
-          <input className="form-control" type="text" onChange={(text)=>setUrlImageSilde(text.target.value)} value={urlImageSilde}/>
-          </div>
-        
-          <button onClick={()=>{
-            update({id:idSlide,stt:stt,title:titleSlide,content:contentSlide,urlimage:urlImageSilde},'/updateSlider').then(()=>getSlide())
-            }} className="btn btn-info"> Sửa</button>
-        </Modal>
-      )
-    }else if(typemodal==='modalTeam'){
-      return(
-        <Modal      
-        closeTimeoutMS={1000}
-          isOpen={showModal}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-          
-          <img className='mdclose' src={close} style={{float:'right'}} onClick={()=>closeModal()}></img>
-          <div className="form-group">
-          <label for="Stt">name</label>
-          <input id="Stt" className="form-control" type="text" onChange={(text)=>setName(text.target.value)} value={name}/>
-          </div>
-      
-          <div className="form-group">
-          <label for="Stt">Postition</label>
-          <input className="form-control" type="text" onChange={(text)=>setPosition(text.target.value)} value={position}/>
-          </div>
-          <div className="form-group">
-          <label for="Stt">description</label>
-          <input className="form-control" type="text" onChange={(text)=>setDescriptionTeam(text.target.value)} value={descriptionTeam}/>
-          </div>
-          <div className="form-group">
-          <label for="Stt">avatar</label>
-          <input className="form-control" type="text" onChange={(text)=>setAvatar(text.target.value)} value={avatar}/>
-          </div>
-          <button onClick={()=>{
-            update({id:idTeam,name:name,description:descriptionTeam,position:position,avatar:avatar},'/updateTeam').then(()=>getTeam())
-            }} className="btn btn-info"> Sửa</button>
-        </Modal>
-      )
-    }
-   
+  async function getTeam() {
+    setLoading(true);
+    const rs = await axios('/getNews')
+    SetTeam(rs.data)
+    setLoading(false);  
+
   }
-
+  const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
+    const pageNumbers = [];
+  
+    for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+      pageNumbers.push(i);
+    }
+  
     return (
-      <div className='edit'>
-   {modal()}
-        <div>
-        <ul>
-          <div class="d-flex flex-row">
-
-            <div class="p-2"><Link to="/add">Thêm</Link></div>
-            <div class="p-2"><Link to="/contact">Liên hệ</Link></div>
-            <div class="p-2"><Link to="/newsAdmin">Tin Tức</Link></div>
-
-          </div>
+        <ul className='pagination' style={{marginTop:0,position:'relative'}}>
+          {pageNumbers.map(number => (
+            <li key={number} >
+              <a onClick={() => paginate(number)}  className='page-link'>
+                {number}
+              </a>
+            </li>
+          ))}
         </ul>
-          <h1>Sửa xóa Slide</h1>
-        <table className="border table-bordered table">
-          <thead>
-            <tr>
-            <th>stt</th>
-            <th>title</th>
-            <th>content</th>
-            <th>urlImage</th>
-            <th></th>
-            </tr>
-         
-          </thead>
-          <tbody style={{width:'100%'}}>
-            
-              {slide.map((list,index)=>(
-                <tr style={{width:'100%'}} key={list._id}>
-                           <td >{list.Stt}</td>
-                           <td>{list.Title}</td>
-                           <td style={{width:'40%'}}>{list.Content}</td>
-                           <td  style={{width:'40%'}}>{list.UrlImage}</td>
-                           <td ><button onClick={()=>openModal(list._id,list.Stt,list.Title,list.Content,list.UrlImage,'slider')} className="btn btn-info"> Sửa  </button><button onClick={()=>deleteItem({id:list._id},'/deleteSlider').then(()=>getSlide())} className="btn btn-danger"> Xóa  </button></td>
-                           </tr>
-              ))}
-   
-
-           
-          </tbody>
-        </table>
-        </div>
-        <div>
-          <h1>Sửa xóa Cán bộ</h1>
-        <table className="border table-bordered table">
-          <thead>
-            <tr>
-            <th>Tên Cán  bộ</th>
-            <th>Vị trí</th>
-            <th>Mô tả</th>
-            <th>Avatar</th>
-            <th></th>
-            </tr>
-         
-          </thead>
-          <tbody style={{width:'100%'}}>
-            
-              {team.map((list,index)=>(
-                <tr style={{width:'100%'}} key={list._id}>
-                           <td >{list.name}</td>
-                           <td>{list.position}</td>
-                           <td style={{width:'40%'}}>{list.description}</td>
-                           <td  style={{width:'40%'}}>{list.avatar}</td>
-                           <td ><button onClick={()=>openModalTeam(list._id,list.name,list.position,list.title,list.description,list.avatar,'modalTeam')} className="btn btn-info"> Sửa  </button></td>
-                           </tr>
-              ))}
-   
-
-           
-          </tbody>
-        </table>
-        </div>
-        <div>
-          <h1>Sửa xóa Icon</h1>
-        <table className="border table-bordered table">
-          <thead>
-            <tr>
-            <th>UrlIcon</th>
-            <th></th>
-      
-            </tr>
-         
-          </thead>
-          <tbody style={{width:'100%'}}>
-            
-              {listcustomer.map((list,index)=>(
-                <tr style={{width:'100%'}} key={list._id}>
-                           <td style={{width:'90%'}} >{list.imagecustomer}</td>
-                       
-                           <td ><button onClick={()=>deleteItem({id:list._id},'/deleteCustomer').then(()=>getCustomer())} className="btn btn-danger">  xóa  </button></td>
-                           </tr>
-              ))}
-   
-
-           
-          </tbody>
-        </table>
-        </div>
-      </div>
     );
-  }
+  };
+  const Posts = ({ posts, loading,openModal }) => {
+
+    if (loading) {
+      return <h2>Loading...</h2>;
+    }
+  
+    return (
+      <div class="row">
+    
+      {posts.map((list)=>(
+  <div class="col-lg-6 col-md-12">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Basic Card</h4>
+      <h6 class="card-subtitle text-muted">Basic Card With Header &amp; Footer</h6>
+    </div>
+    <img class="" src={list.image} alt="Card image cap"/>
+    <div class="card-body">
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a href="#" class="card-link">Card link</a>
+      <a href="#" class="card-link">Another link</a>
+    </div>
+    <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
+      <span class="float-left">3 hours ago</span>
+      <span class="float-right">
+        <a href="#" class="card-link">Read More
+          <i class="la la-angle-right"></i>
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+      ))}
+  
+      
+
+    </div>
+    );
+  };
+  return (
+
+    <div>
+    
+    <Posts posts={currentPosts} loading={loading} />
+      <Pagination
+        postsPerPage={postsPerPage}
+        totalPosts={team.length}
+        paginate={paginate}
+      />
+
+    </div>
+  );
+}

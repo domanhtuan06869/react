@@ -1,4 +1,4 @@
-import React,{useRef,useState,useEffect} from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import close from '../assets/image/close.png'
 import 'react-quill/dist/quill.snow.css';
 import ReactQuill, { Quill } from 'react-quill';
@@ -9,267 +9,307 @@ import qs from 'qs'
 import DataTable from 'react-data-table-component';
 import IconButton from '@material-ui/core/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faDeaf } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
 import DeleteIcon from '@material-ui/icons/Delete';
+import FileBase64 from 'react-file-base64';
+import Swal from "sweetalert2"; 
+
 var toolbarOptions = [
-    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-    ['blockquote', 'code-block'],
-    [{ 'color': [] }, { 'background': [] }],
-    ['link', 'image'],
-    [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-    [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
-    [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
-    [{ 'direction': 'rtl' }],                         // text direction
-  
-    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-  
-    [{ 'font': [] }],
-    [{ 'align': [] }],
-  
-  
-    ['clean']                                         // remove formatting button
-  ];
+  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  ['blockquote', 'code-block'],
+  [{ 'color': [] }, { 'background': [] }],
+  ['link', 'image'],
+  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+  [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+  [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+  [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+  [{ 'direction': 'rtl' }],                         // text direction
+
+  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+  [{ 'font': [] }],
+  [{ 'align': [] }],
+
+
+  ['clean']                                         // remove formatting button
+];
 const customStyles = {
-    content : {
-      width                 : '70%',
-      height                : '90%',
-      top                   : '50%',
-      left                  : '50%',
-      right                 : 'auto',
-      bottom                : 'auto',
-      marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)',
-      opacity: '80%',
-      background:'linear-gradient(to right, #ffffff 29%, #ffffff 96%)',
-      marginTop:'5%'      
+  content: {
+    width: '70%',
+    height: '90%',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    opacity: '80%',
+    background: 'linear-gradient(to right, #ffffff 29%, #ffffff 96%)',
+    marginTop: '5%'
+  }
+};
+function NewsAdmin(props) {
+  /*Contact */
+  const [listNews, setListNews] = useState([])
+  const [showModal, setShowModal] = useState(false)
+
+  const [idNews, setIdNews] = useState()
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [content, setContent] = useState('')
+  const [image, setUrlImage] = useState('')
+  const [testimage, setTTestUrlImage] = useState('')
+  const [action, setAction] = useState()
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(9);
+
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = listNews.slice(indexOfFirstPost, indexOfLastPost);
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+  function swal(){
+    Swal.fire({  
+        title: 'Thành công',  
+        type: 'success',  
+    }); 
+}
+function swalErr(){
+  Swal.fire({  
+      title: 'Xóa Thành công',  
+      type: 'success',  
+      icon: 'error'
+  }); 
+}
+
+
+  useEffect(() => {
+    getNews()
+    props.setColor()
+  }, [])
+  async function getNews() {
+    setLoading(true)
+    const result = await axios('/getNews')
+    setListNews(result.data)
+    setLoading(false);
+  }
+  const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
+    const pageNumbers = [];
+
+    for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+      pageNumbers.push(i);
     }
+
+    return (
+      <ul className='pagination' style={{ marginTop: 0, position: 'relative' }}>
+        {pageNumbers.map(number => (
+          <li key={number} >
+            <a onClick={() => paginate(number)} className='page-link'>
+              {number}
+            </a>
+          </li>
+        ))}
+      </ul>
+    );
   };
-function Contact(props){
-    /*Contact */
-    const [listNews,setListNews]=useState([])
-  const[showModal,setShowModal]=useState(false)
+  const Posts = ({ posts, loading, openModal, deleteItem }) => {
 
-    const [idNews,setIdNews]=useState()
-    const[title,setTitle]=useState('')
-    const[description,setDescription]=useState('')
-    const[content,setContent]=useState('')
-    const [image,setUrlImage]=useState('')
-    const[action,setAction]=useState()
-    const [loading, setLoading] = useState(false);
+    if (loading) {
+      return <h2 style={{margin:'0 auto',textAlign:'center'}}>Loading...</h2>;
+    }
 
- useEffect(()=>{
-getNews()
-props.setColor()
- },[])
-async function getNews(){
-  setLoading(true)
-  const result=await axios('/getNews')
-  setListNews(result.data)
-  setLoading(false);
-}
-const actions = (
-  <IconButton title='Thêm' style={{marginRight:50}} onClick={()=>openModal('Thêm')}
-    color="primary"
-  >
-    < Add />
-  </IconButton>
-);
-function openModal(action,id,title,description,content,image) {
-  if(action==='Thêm'){
-    setAction('Thêm')
-    setShowModal(true)
-  }else{
-    setAction('Sửa')
-    setShowModal(true) 
-    setIdNews(id)
-    setTitle(title)
-    setDescription(description)
-    setContent(content)
-    setUrlImage(image)
+    return (
+      <div style={{marginTop:3}} class="row">
+
+        {posts.map((list) => (
+          <div style={{marginTop:3}} class="col-lg-4  col-sm-12">
+            <div class="card">
+              <img class="card-img-top img-responsive" src={list.image} alt="Card image cap" />
+              <div class="card-body">
+                <ul class="list-inline font-14">
+
+                </ul>
+                <h3  style={{textAlign:'justify'}} class="font-normal">{list.title.length <= 40 ? list.title : list.title.slice(0, 40) + '...'}</h3>
+                <p style={{ textAlign: 'justify' }}>{list.description.length <= 90 ? list.description : list.description.slice(0, 90) + '...'}</p>
+                <button onClick={() => openModal('Sửa', list._id, list.title, list.description, list.content, list.image)} class="btn btn-success btn-rounded waves-effect waves-light m-t-20">Sửa</button>
+                <button style={{ marginLeft: 5 }} onClick={() => deleteItem({ id: list._id }, '/deleteNews').then(() => getNews())} class="btn btn-danger btn-rounded waves-effect waves-light m-t-20">Xóa </button>
+              </div>
+            </div>
+          </div>
+        ))}
+
+
+
+      </div>
+    );
+  };
+
+  function openModal(action, id, title, description, content, image) {
+    if (action === 'Thêm') {
+      setAction('Thêm')
+      setShowModal(true)
+    } else {
+      setAction('Sửa')
+      setShowModal(true)
+      setIdNews(id)
+      setTitle(title)
+      setDescription(description)
+      setContent(content)
+      setUrlImage(image)
+
+    }
+
+
+
 
   }
-    
-
-
-
-}
-function closeModal() {
+  function closeModal() {
     setShowModal(false)
+    setIdNews('')
+    setTitle('')
+    setDescription('')
+    setContent('')
+    setUrlImage('')
   }
-  const secondStyle = `
-  background: blue;
-  height: 20px;
-  width: 20px;
-  :hover {
-    cursor: pointer;
-    background: red;
-`
 
 
-  async function insertupdate(data,url,method){
+
+  async function insertupdate(data, url, method) {
     await axios({
-        method:method ,
-        url: url,
-        data: qs.stringify(data),
-        headers: {
-          'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
-        }
-      }).then((res) => {
-        alert('success')
-        closeModal(false)
-      })
+      method: method,
+      url: url,
+      data: qs.stringify(data),
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded;charset=utf-8'
+      }
+    }).then((res) => {
+        swal()
+      closeModal(false)
+    })
   }
-  async function deleteItem(data,url){
+  async function deleteItem(data, url) {
     await axios({
       method: 'delete',
       url: url,
       data: data,
-  
+
       headers: {
         'content-type': 'application/json'
       }
     }).then((res) => {
-      alert('success')
-     
+      swalErr()
+
     }).catch(() => {
       alert('error')
     })
   }
-  const columns = [
-    {
-      name: 'Title',
-      selector: 'title',
-      sortable: true,
-      maxWidth:'400px'
-    },
-    {
-      name: 'Description',
-      selector: 'description',
-      sortable: true,
-      maxWidth:'330px'
-    },
-    {
-      name: 'Image',
-      selector: 'image',
-      sortable: true,
-      maxWidth:'340px'
-   
-    },
-    {
-  
-      name: 'Sửa  Xóa',
-      sortable: true,
-      button:true,
-  
-      
-      cell: (list) => <div>
-   <FontAwesomeIcon className='icon-edit'  onClick={()=>openModal('Sửa',list._id,list.title,list.description,list.content,list.image)} size="lg"  title="Sửa" icon={faEdit} >
-    
-   </FontAwesomeIcon>
-   <DeleteIcon onClick={()=>deleteItem({id:list._id},'/deleteNews').then(()=>getNews())} className='delete-icon' titleAccess='Xóa'></DeleteIcon>
-      </div>
-    },
-  
-  
-  ];
-return(
-<div>
-<Modal      
+
+
+
+
+  return (
+    <div  style={{width:'100%'}}>
+      <Modal
         closeTimeoutMS={500}
-          isOpen={showModal}
-    
-          onRequestClose={closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-          
-          <img className='mdclose' src={close} style={{float:'right',width:20,height:20}} onClick={()=>closeModal()}></img>
-          <h2>{action==='Thêm'?'Thêm bản tin':'Sửa bản tin'}</h2>
-          <form style={{ height: 900, maxWidth: '100%', margin: 10 }}>
-            <div class="form-group">
-              <label for="title">title</label>
-              <input
-                type="text"
+        isOpen={showModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
 
-                class="form-control"
-                placeholder="title"
-                value={title}
-                onChange={(text) => setTitle( text.target.value )}
-              />
+        <img className='mdclose' src={close} style={{ float: 'right', width: 20, height: 20 }} onClick={() => closeModal()}></img>
+        <h2>{action === 'Thêm' ? 'Thêm bản tin' : 'Sửa bản tin'}</h2>
+        <div style={{ height: 900, maxWidth: '95%', margin: 30 }}>
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input
+              type="text"
+
+              class="form-control"
+              placeholder="title"
+              value={title}
+              onChange={(text) => setTitle(text.target.value)}
+            />
+          </div>
+          <div class="form-group">
+            <label for="image">Image</label>
+            <div>
+              <FileBase64
+                multiple={false}
+                onDone={(file) => setUrlImage(file.base64)} /> {image === '' ? null : <img style={{ width: 100, height: 50 }} src={image}></img>}
             </div>
-            <div class="form-group">
-              <label for="image">Image</label>
-              <input
-                type="text"
 
-                class="form-control"
-                placeholder="image"
-                value={image}
-                onChange={(text) => setUrlImage(text.target.value )}
-              />
-            </div>
-            <div class="form-group">
-              <label for="description">Descripton</label>
-              <input
-                type="text"
+          </div>
+          <div class="form-group">
+            <label for="description">Descripton</label>
+            <input
+              type="text"
 
-                class="form-control"
-                placeholder="descripton"
-                value={description}
-                onChange={(text) => setDescription(text.target.value )}
+              class="form-control"
+              placeholder="descripton"
+              value={description}
+              onChange={(text) => setDescription(text.target.value)}
 
-              />
+            />
 
-            </div>
-            <div class="form-group">
-              <label for="content">content</label>
-              <ReactQuill value={content} style={{ height: 450, margin: 10 }} id='content' theme="snow"
-                modules={{ toolbar: toolbarOptions }}
-                formats={[
-                  'header',
-                  'bold', 'italic', 'underline', 'strike', 'blockquote', 'background',
-                  'list', 'bullet', 'indent',
-                  'link', 'image'
-                ]}
-                onChange={(e) => setContent( e )}
-              >
-              </ReactQuill>
+          </div>
+          <div class="form-group">
+            <label for="content">Content</label>
+            <ReactQuill value={content} style={{ height: 450, margin: 10 }} id='content' theme="snow"
+              modules={{ toolbar: toolbarOptions }}
+              formats={[
+                'header',
+                'bold', 'italic', 'underline', 'strike', 'blockquote', 'background',
+                'list', 'bullet', 'indent',
+                'link', 'image'
+              ]}
+              onChange={(e) => setContent(e)}
+            >
+            </ReactQuill>
 
-            </div>
-            <div style={{marginTop:80}} class="form-group"> 
-            <button onClick={()=>{
-              action==='Thêm'?
-             insertupdate({
-               content:content,
-              description:description,
-              title: title,
-              image:image},'/postNews','post').then(()=>getNews()) :insertupdate({
-                id:idNews,
-                content:content,
-                description:description,
-                title: title,
-                image:image},'/updateNews','put').then(()=>getNews())
+          </div>
+          <div style={{ marginTop: 80 }} class="form-group">
+            <button onClick={() => {
+              action === 'Thêm' ?
+                insertupdate({
+                  content: content,
+                  description: description,
+                  title: title,
+                  image: image
+                }, '/postNews', 'post').then(() => getNews()) : insertupdate({
+                  id: idNews,
+                  content: content,
+                  description: description,
+                  title: title,
+                  image: image
+                }, '/updateNews', 'put').then(() => getNews())
             }} className="btn btn-info">{action}</button>
-            </div>
-          </form>
- 
-       
-        </Modal>
-
-        <div>
-        <h2>Quản lí bản tin</h2>
-          <DataTable
-    progressPending={loading}
-        columns={columns}
-        data={listNews}
-        actions={actions}
-        pagination
-      />
+          </div>
         </div>
+
+
+      </Modal>
+
+      <button onClick={()=>openModal('Thêm')} style={{float:'right'}} type="button" class="btn btn-info d-none d-lg-block m-l-15"> <FontAwesomeIcon icon={faPlus} /> Create New</button>
+    
      
-</div>
-)
+        <h2>Quản lí bản tin</h2>
+
+
+
+        <Posts posts={currentPosts} loading={loading} openModal={openModal} deleteItem={deleteItem} />
+        <Pagination
+          postsPerPage={postsPerPage}
+          totalPosts={listNews.length}
+          paginate={paginate}
+        />
+
+
+     
+
+    </div>
+  )
 }
-export default Contact
+export default NewsAdmin

@@ -1,17 +1,13 @@
 import React, { useRef, useState, useEffect } from 'react'
 import close from '../assets/image/close.png'
-import 'react-quill/dist/quill.snow.css';
-import ReactQuill, { Quill } from 'react-quill';
+
 import axios from 'axios'
 import Modal from 'react-modal';
-import Add from '@material-ui/icons/Add';
-import qs from 'qs'
 import DataTable from 'react-data-table-component';
 import IconButton from '@material-ui/core/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faDeaf } from '@fortawesome/free-solid-svg-icons'
-import DeleteIcon from '@material-ui/icons/Delete';
-import FileBase64 from 'react-file-base64';
+
 
 const customStyles = {
     content: {
@@ -28,13 +24,13 @@ const customStyles = {
         marginTop: '5%'
     }
 };
-function Customer(props) {
-    /*Contact */
+function UpdateInfomation(props) {
+
     const [listNews, setListNews] = useState([])
     const [showModal, setShowModal] = useState(false)
-    const [action, setAction] = useState('')
+    const [action,setAction]=useState('')
     const [id, setId] = useState('')
-    const [url, setUrl] = useState('')
+    const [content, setContent] = useState('')
 
     const [loading, setLoading] = useState(false);
 
@@ -44,18 +40,13 @@ function Customer(props) {
     }, [])
     async function getCustomer() {
         setLoading(true)
-        const result = await axios('/getCustomer')
-        setListNews(result.data)
-        setLoading(false);
+        const result = await axios('/getIntroductions')
+       setListNews(result.data)
+    
+       setLoading(false);
     }
-    const actions = (
-        <IconButton title='Thêm' style={{}} onClick={() => openModal('Thêm')}
-            color="primary"
-        >
-            < Add />
-        </IconButton>
-    );
-    function openModal(action, id, url) {
+
+    function openModal(action, id,content) {
         if (action === 'Thêm') {
             setAction('Thêm')
             setShowModal(true)
@@ -63,7 +54,7 @@ function Customer(props) {
             setAction('Sửa')
             setShowModal(true)
             setId(id)
-            setUrl(url)
+            setContent(content)
 
 
         }
@@ -74,7 +65,6 @@ function Customer(props) {
     }
     function closeModal() {
         setShowModal(false)
-        setUrl('')
     }
 
 
@@ -101,39 +91,36 @@ function Customer(props) {
                 'content-type': 'application/json'
             }
         }).then((res) => {
-            // alert('success')
+            alert('success')
 
         }).catch(() => {
             alert('error')
         })
     }
     const columns = [
-
+    
         {
-            name: 'Icon khách hàng',
+            name: 'Nội dung',
+            selector: 'content',
             sortable: true,
-            cell:(list)=><img style={{height:40,width:80,margin:5}} src={list.imagecustomer}></img>
+            maxWidth:'1100px'
         },
         {
 
-            name: 'Sửa  Xóa',
+            name: 'Sửa',
             sortable: true,
             button: true,
 
 
             cell: (list) => <div>
-                <FontAwesomeIcon className='icon-edit' onClick={() => openModal('Sửa', list._id, list.imagecustomer)} size="lg" title="Sửa" icon={faEdit} >
+                <FontAwesomeIcon className='icon-edit' onClick={() => openModal('Sửa', list._id, list.content)} size="lg" title="Sửa" icon={faEdit} >
 
                 </FontAwesomeIcon>
-                <DeleteIcon onClick={() => deleteItem({ id: list._id }, '/deleteCustomer').then(() => getCustomer())} className='delete-icon' titleAccess='Xóa'></DeleteIcon>
             </div>
         },
 
 
     ];
-    function getFiles(files) {
-    setUrl(files.base64)
-    }
     return (
         <div>
             <Modal
@@ -145,16 +132,18 @@ function Customer(props) {
                 contentLabel="Example Modal" >
 
                 <img className='mdclose' src={close} style={{ float: 'right', width: 20, height: 20 }} onClick={() => closeModal()}></img>
-                <h2>{action === 'Thêm' ? 'Thêm icon khách hàng' : 'Sửa icon khách hàng'}</h2>
+                <h2>{action === 'Thêm' ? 'Thêm icon khách hàng' : 'Sửa Thông Tin Công Ty'}</h2>
                 <div style={{ height: 400, maxWidth: '100%', margin: 10 }}>
                     <div class="form-group">
-                        <label for="title">Chọn ảnh khách hàng</label>
-                        <div>
-                        <FileBase64
-                            multiple={false}
-                            onDone={getFiles} />  {url===''?null: <img style={{width:100,height:50}} src={url}></img>} 
-                        </div>
-                    
+                        <label for="title">Thông tin</label>
+                        <input
+                            type="text"
+
+                            class="form-control"
+                            placeholder="link url"
+                            value={content}
+                            onChange={(text) => setContent(text.target.value)}
+                        />
                     </div>
 
 
@@ -163,11 +152,11 @@ function Customer(props) {
                         <button onClick={() => {
                             action === 'Thêm' ?
                                 insertupdate({
-                                    imagecustomer: url
+                                    content:content
                                 }, '/postCustomer', 'post').then(() => getCustomer()) : insertupdate({
-                                    id: id,
-                                    imagecustomer: url
-                                }, '/updateCustomer', 'put').then(() => getCustomer())
+                                    id:id,
+                                    content:content
+                                }, '/updateintro', 'put').then(() => getCustomer())
                         }} className="btn btn-info">{action}</button>
                     </div>
                 </div>
@@ -176,12 +165,11 @@ function Customer(props) {
             </Modal>
 
             <div>
-                <h2>Quản khách hàng</h2>
+                <h2>Quản lí giới thiệu công ty</h2>
                 <DataTable
                     progressPending={loading}
                     columns={columns}
                     data={listNews}
-                    actions={actions}
                     pagination
                 />
             </div>
@@ -189,4 +177,4 @@ function Customer(props) {
         </div>
     )
 }
-export default Customer
+export default UpdateInfomation

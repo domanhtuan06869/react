@@ -38,7 +38,7 @@ async function postContact(){
         method: 'post',
        url: '/postContact' ,
        headers: axiosConfig,
-       data: JSON.stringify(postData)
+       data:postData
    }).then((res)=>{
         setCheckName(null)
         setCheckEmail(null)
