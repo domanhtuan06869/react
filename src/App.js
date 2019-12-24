@@ -20,7 +20,7 @@ import NewsAdmin from '../src/componentsAdmin/NewsAdmin'
 
 function App() {
     const listnews= useSelector(state => state.reducerNews.data);
-const listSlider=useSelector(state=>state.reducerSlider.data)
+   const listSlider=useSelector(state=>state.reducerSlider.data)
 
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true)
@@ -38,11 +38,11 @@ const listSlider=useSelector(state=>state.reducerSlider.data)
       }
       
 async function getAll(){
-    await axios.all([getNews(),getSlide()]).then(()=>setLoading(false))
+    await axios.all([getSlide(),getNews()]).then(()=>setLoading(false))
 }
     setTimeout(() => {
         setLoading(false)
-    }, 5000);
+    }, 7000);
     useEffect(()=>{
     getAll()
     },[])

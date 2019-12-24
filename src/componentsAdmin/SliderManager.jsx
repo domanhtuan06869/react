@@ -14,7 +14,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FileBase64 from 'react-file-base64';
 import Swal from "sweetalert2"; 
 
-import { file } from '@babel/types';
 const customStyles = {
     content: {
         width: '70%',
@@ -40,6 +39,7 @@ function SliderManager(props) {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [url, setUrl] = useState('')
+    const[checked,setChecked]=useState(false)
 
 
     const [loading, setLoading] = useState(false);
@@ -144,6 +144,7 @@ function SliderManager(props) {
             setStt('')
             setContent('')
             setTitle('')
+            setChecked(false)
         }, 300)
 
     }
@@ -243,10 +244,21 @@ function SliderManager(props) {
                     <div class="form-group">
                         <label for="content">UrlImage</label>
                         <div>
-                            <FileBase64
+                        {checked===false?  <FileBase64
                                 multiple={false}
-                                onDone={(file) => setUrl(file.base64)} />  {url === '' ? null : <img style={{ width: 100, height: 50 }} src={url}></img>}
+                                onDone={(file) => setUrl(file.base64)} />:  <input 
+                                type="text"
+                                
+                                class="form-control"
+                                placeholder="content"
+                                value={url}
+                                onChange={(text) => setUrl(text.target.value)}
+    
+                            />}    {url === '' ? null : <img style={{ width: 100, height: 50 ,marginTop:true?3:0 }} src={url}></img>} 
+                             <label>Chọn ảnh</label>   <input type='radio' checked={checked===false?true:false} onClick={()=>setChecked(false)} name ="cbSlider" />
+                             <label>Nhập link</label>     <input type='radio' onClick={()=>setChecked(true)}  name="cbSlider"/>
                         </div>
+
                     </div>
 
 

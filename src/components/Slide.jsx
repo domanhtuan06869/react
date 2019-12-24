@@ -1,4 +1,4 @@
-import React ,{ useRef, useEffect,useState}from 'react'
+import React ,{ useRef, useEffect,useState,lazy}from 'react'
 
 import doitac from '../assets/image/doitac1.png'
 import doitac2 from '../assets/image/doitac2.png'
@@ -9,16 +9,14 @@ import "normalize.css/normalize.css";
 import "../assets/css/style.css";
 import "../assets/css/slider-animations.css";
 
-function Slide(props){
-useEffect(()=>{
+function Slide({listSlider}){
 
-},[])
  
 return(
 
 <div   className='body-product' >
 <Slider className="slider-wrapper"  autoplay={3000}>
-      {props.listSlider.map((item, index) => (
+      {listSlider.map((item, index) => (
       <div key={item._id} className='body-product' >
       <div className='product'>
       <p>{item.Stt}</p>
