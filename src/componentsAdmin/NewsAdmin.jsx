@@ -6,8 +6,6 @@ import axios from 'axios'
 import Modal from 'react-modal';
 import Add from '@material-ui/icons/Add';
 import qs from 'qs'
-import DataTable from 'react-data-table-component';
-import IconButton from '@material-ui/core/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -59,7 +57,6 @@ function NewsAdmin(props) {
   const [description, setDescription] = useState('')
   const [content, setContent] = useState('')
   const [image, setUrlImage] = useState('')
-  const [testimage, setTTestUrlImage] = useState('')
   const [action, setAction] = useState()
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -74,6 +71,7 @@ function NewsAdmin(props) {
     Swal.fire({  
         title: 'Thành công',  
         type: 'success',  
+        icon: 'success' 
     }); 
 }
 function swalErr(){
@@ -84,7 +82,7 @@ function swalErr(){
   }); 
 }
 
-
+var a=document.cookie
   useEffect(() => {
     getNews()
     props.setColor()
@@ -122,22 +120,28 @@ function swalErr(){
 
     return (
       <div style={{marginTop:3}} class="row">
+      
 
         {posts.map((list) => (
-          <div style={{marginTop:3}} class="col-lg-4  col-sm-12">
-            <div class="card">
-              <img class="card-img-top img-responsive" src={list.image} alt="Card image cap" />
+          <div  key={list._id} class="col-lg-3 col-md-12 mt-4">
+          <div class="card">
+        
+              <img style={{height:200}} class="card-img-top img-responsive" src={list.image}  alt="Card image cap" />
               <div class="card-body">
-                <ul class="list-inline font-14">
+                  <h5 style={{textAlign:'justify'}} class="card-text">{list.title.length <= 50 ? list.title : list.title.slice(0, 50) + '...'}</h5>
 
-                </ul>
-                <h3  style={{textAlign:'justify'}} class="font-normal">{list.title.length <= 40 ? list.title : list.title.slice(0, 40) + '...'}</h3>
-                <p style={{ textAlign: 'justify' }}>{list.description.length <= 90 ? list.description : list.description.slice(0, 90) + '...'}</p>
-                <button onClick={() => openModal('Sửa', list._id, list.title, list.description, list.content, list.image)} class="btn btn-success btn-rounded waves-effect waves-light m-t-20">Sửa</button>
-                <button style={{ marginLeft: 5 }} onClick={() => deleteItem({ id: list._id }, '/deleteNews').then(() => getNews())} class="btn btn-danger btn-rounded waves-effect waves-light m-t-20">Xóa </button>
               </div>
-            </div>
+              <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
+                  <span class="float-left"></span>
+                  {list.email}
+                  <span class="float-right">
+                      <FontAwesomeIcon style={{marginRight:4,paddingTop:2}} className='icon-edit' onClick={() => openModal('Sửa', list._id, list.title, list.description, list.content, list.image)} size="lg" title="Sửa" icon={faEdit} >
+                      </FontAwesomeIcon>
+                      <DeleteIcon onClick={() => deleteItem({ id: list._id }, '/deleteNews').then(() => getNews())} className='delete-icon' titleAccess='Xóa'></DeleteIcon>
+                  </span>
+              </div>
           </div>
+      </div>
         ))}
 
 
@@ -187,6 +191,7 @@ function swalErr(){
     }).then((res) => {
         swal()
       closeModal(false)
+      getNews()
     })
   }
   async function deleteItem(data, url) {
@@ -270,20 +275,22 @@ function swalErr(){
             </ReactQuill>
 
           </div>
-          <div style={{ marginTop: 80 }} class="form-group">
+          <div style={{ marginTop: 80 ,marginLeft:10}} class="form-group">
             <button onClick={() => {
               action === 'Thêm' ?
                 insertupdate({
                   content: content,
                   description: description,
                   title: title,
-                  image: image
+                  image: image,
+                  email:localStorage.getItem('email')
                 }, '/postNews', 'post').then(() => getNews()) : insertupdate({
                   id: idNews,
-                  content: content,
+                  content: content, 
                   description: description,
                   title: title,
-                  image: image
+                  image: image,
+                  email:localStorage.getItem('email')
                 }, '/updateNews', 'put').then(() => getNews())
             }} className="btn btn-info">{action}</button>
           </div>

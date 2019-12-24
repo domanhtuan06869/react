@@ -82,15 +82,12 @@ function SliderManager(props) {
             <div class="row">
 
                 {posts.map((list) => (
-                    <div style={{marginTop:3}} key={list._id} class="col-lg-6 col-md-12">
+                    <div  key={list._id} class="col-lg-3 col-md-12 mt-4">
                         <div class="card">
+                      
+                            <img style={{height:200}} class="card-img-top img-responsive" src={list.UrlImage} alt="Card image cap" />
                             <div class="card-body">
-                                <h4 class="card-title">{list.Title}</h4>
-
-                            </div>
-                            <img class="card-img-top img-responsive" src={list.UrlImage} alt="Card image cap" />
-                            <div class="card-body">
-                                <p class="card-text">{list.Content}</p>
+                                <p class="card-text">{list.Title}</p>
 
                             </div>
                             <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
@@ -155,6 +152,7 @@ function SliderManager(props) {
         Swal.fire({  
             title: 'Thành công',  
             type: 'success',  
+            icon: 'success' 
         }); 
     }
     function swalErr(){

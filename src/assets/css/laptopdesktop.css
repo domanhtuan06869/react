@@ -97,7 +97,7 @@ border-radius: 2;
     }
     .btn-xemthem {
         position: absolute;
-        top: 60%;
+        top: 59%;
         left: 19.3%;
         width: 15%;
         height: 4%;
@@ -117,7 +117,7 @@ border-radius: 2;
     }
     .body {
         height: 800px;
-        margin-top: 15%;
+        margin-top: 13%;
         text-align: center
     }
     .product {
@@ -349,7 +349,7 @@ border-radius: 2;
     }
     .btn-xemthem {
         position: absolute;
-        top: 59%;
+        top: 55%;
         left: 19.3%;
         width: 15%;
         height: 4%;
@@ -369,7 +369,7 @@ border-radius: 2;
     }
     .body {
         height: 800px;
-        margin-top: 15%;
+        margin-top: 8%;
         text-align: center
     }
     .product {

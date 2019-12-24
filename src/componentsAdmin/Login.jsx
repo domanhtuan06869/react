@@ -27,6 +27,7 @@ export default class Login extends Component {
     })
     .then(res => {
       if (res.status === 200) {
+       localStorage.setItem('email',this.state.email)
         this.props.history.push('/admin');
       } else {
         const error = new Error(res.error);

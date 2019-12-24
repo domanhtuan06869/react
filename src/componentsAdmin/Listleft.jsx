@@ -47,22 +47,22 @@ export const  MainListItems =({color})=> (
   </ListItem>
   </NavLink>
 
-  <NavLink style={{color:color.colorContact}} to='/contact'>
-  <ListItem button>
-    <ListItemIcon>
-      <PeopleIcon htmlColor={color.colorContact}  lightingColor={color.colorContact}  />
-    </ListItemIcon>
-    <ListItemText primary="Liên hệ" />
-  </ListItem>
-  </NavLink>
-
-
+  
   <NavLink style={{color:color.colorCustomer}} to='/customer'>
   <ListItem button>
     <ListItemIcon>
       <BarChartIcon htmlColor={color.colorCustomer}  lightingColor={color.colorCustomer}  />
     </ListItemIcon>
     <ListItemText primary="Khách hàng" />
+  </ListItem>
+  </NavLink>
+
+  <NavLink style={{color:color.colorContact}} to='/contact'>
+  <ListItem button>
+    <ListItemIcon>
+      <PeopleIcon htmlColor={color.colorContact}  lightingColor={color.colorContact}  />
+    </ListItemIcon>
+    <ListItemText primary="Liên hệ" />
   </ListItem>
   </NavLink>
 

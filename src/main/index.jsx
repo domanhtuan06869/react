@@ -28,8 +28,6 @@ const Mobile = ({ children }) => {
 
 function Index(props) {
 
-  var count = 0
-
   const messagesEndRef=useRef(null)
   const box=useRef(null)
   const project=useRef(null)
@@ -112,8 +110,8 @@ function Index(props) {
     <div className='Main'>
       <Desktop>
         <Header sc={scrollToBottom} scb={scrollToBox}  scproject={scrollToProject} ></Header>
-        <Body  refs={project}></Body>
-        <News refs={box}></News>
+        <Body  refs={project} listSlider={props.listSlider}></Body>
+        <News listnews={props.listnews} refs={box}></News>
         <Testimonials></Testimonials>
         <Boxfrom ></Boxfrom>
         <Footer refs={messagesEndRef}></Footer>
@@ -121,9 +119,9 @@ function Index(props) {
 
       <Tablet>
       <Header sc={scrollToBottom} scb={scrollToBox}  scproject={scrollToProject} ></Header>
-        <Body  refs={project}></Body>
-        <News></News>
-        <Testimonials refs={box}></Testimonials>
+        <Body  refs={project} listSlider={props.listSlider}></Body>
+        <News listnews={props.listnews}  refs={box}></News>
+        <Testimonials></Testimonials>
         <Boxfrom ></Boxfrom>
         <Footer refs={messagesEndRef}></Footer>
 
@@ -131,9 +129,9 @@ function Index(props) {
 
       <Mobile>
       <Header sc={scrollToBottom} scb={scrollToBox}  scproject={scrollToProject} ></Header>
-        <Body  refs={project}></Body>
-        <News></News>
-        <Testimonials refs={box}></Testimonials>
+        <Body  refs={project} listSlider={props.listSlider}></Body>
+        <News listnews={props.listnews}  refs={box}></News>
+        <Testimonials ></Testimonials>
         <Boxfrom ></Boxfrom>
         <Footer refs={messagesEndRef}></Footer>
       </Mobile>

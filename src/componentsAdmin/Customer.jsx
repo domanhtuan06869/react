@@ -9,9 +9,10 @@ import qs from 'qs'
 import DataTable from 'react-data-table-component';
 import IconButton from '@material-ui/core/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faDeaf } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
 import DeleteIcon from '@material-ui/icons/Delete';
 import FileBase64 from 'react-file-base64';
+import Swal from "sweetalert2";
 
 const customStyles = {
     content: {
@@ -48,13 +49,7 @@ function Customer(props) {
         setListNews(result.data)
         setLoading(false);
     }
-    const actions = (
-        <IconButton title='Thêm' style={{}} onClick={() => openModal('Thêm')}
-            color="primary"
-        >
-            < Add />
-        </IconButton>
-    );
+
     function openModal(action, id, url) {
         if (action === 'Thêm') {
             setAction('Thêm')
@@ -87,7 +82,7 @@ function Customer(props) {
                 'content-type': 'application/json'
             }
         }).then((res) => {
-            alert('success')
+            swal()
             closeModal(false)
         })
     }
@@ -101,38 +96,28 @@ function Customer(props) {
                 'content-type': 'application/json'
             }
         }).then((res) => {
-            // alert('success')
+            swalErr()
 
         }).catch(() => {
             alert('error')
         })
     }
-    const columns = [
-
-        {
-            name: 'Icon khách hàng',
-            sortable: true,
-            cell:(list)=><img style={{height:40,width:80,margin:5}} src={list.imagecustomer}></img>
-        },
-        {
-
-            name: 'Sửa  Xóa',
-            sortable: true,
-            button: true,
-
-
-            cell: (list) => <div>
-                <FontAwesomeIcon className='icon-edit' onClick={() => openModal('Sửa', list._id, list.imagecustomer)} size="lg" title="Sửa" icon={faEdit} >
-
-                </FontAwesomeIcon>
-                <DeleteIcon onClick={() => deleteItem({ id: list._id }, '/deleteCustomer').then(() => getCustomer())} className='delete-icon' titleAccess='Xóa'></DeleteIcon>
-            </div>
-        },
-
-
-    ];
+    function swal(){
+        Swal.fire({  
+            title: 'Thành công',  
+            type: 'success', 
+            icon: 'success' 
+        }); 
+    }
+    function swalErr(){
+      Swal.fire({  
+          title: 'Xóa Thành công',  
+          type: 'success',  
+          icon: 'error'
+      }); 
+    }
     function getFiles(files) {
-    setUrl(files.base64)
+        setUrl(files.base64)
     }
     return (
         <div>
@@ -150,11 +135,11 @@ function Customer(props) {
                     <div class="form-group">
                         <label for="title">Chọn ảnh khách hàng</label>
                         <div>
-                        <FileBase64
-                            multiple={false}
-                            onDone={getFiles} />  {url===''?null: <img style={{width:100,height:50}} src={url}></img>} 
+                            <FileBase64
+                                multiple={false}
+                                onDone={getFiles} />  {url === '' ? null : <img style={{ width: 100, height: 50 }} src={url}></img>}
                         </div>
-                    
+
                     </div>
 
 
@@ -176,14 +161,36 @@ function Customer(props) {
             </Modal>
 
             <div>
-                <h2>Quản khách hàng</h2>
-                <DataTable
-                    progressPending={loading}
-                    columns={columns}
-                    data={listNews}
-                    actions={actions}
-                    pagination
-                />
+            <button onClick={()=>openModal('Thêm')} style={{float:'right'}} type="button" class="btn btn-info d-none d-lg-block m-l-15"> <FontAwesomeIcon icon={faPlus} /> Create New</button>
+                <h2>Ảnh khách hàng</h2>
+
+   
+                <div style={{ marginTop: 3 }} class="row">
+                    {listNews.map((list) => (
+                                <div  key={list._id} class="col-lg-3 col-md-12 mt-4">
+                                <div class="card">
+                              
+                                    <img style={{height:200}} class="card-img-top img-responsive" src={list.imagecustomer}  alt="Card image cap" />
+                                    <div class="card-body">
+                      
+                                    </div>
+                                    <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
+                                        <span class="float-left"></span>
+                                    
+                                        <span class="float-right">
+                                            <FontAwesomeIcon style={{marginRight:4,paddingTop:2}} className='icon-edit' onClick={() => openModal('Sửa', list._id, list.imagecustomer)} size="lg" title="Sửa" icon={faEdit} >
+                                            </FontAwesomeIcon>
+                                            <DeleteIcon onClick={() => deleteItem({ id: list._id }, '/deleteCustomer').then(() => getCustomer())} className='delete-icon' titleAccess='Xóa'></DeleteIcon>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                                     
+                    ))}
+
+
+
+                </div>
             </div>
 
         </div>

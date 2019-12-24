@@ -23,33 +23,23 @@ const customStyles = {
     }
   };
 function News(props){
-  const listnews= useSelector(state => state.reducerNews.data);
+ // const listnews= useSelector(state => state.reducerNews.data);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(3);
 
 
-
-
-async function getNews() {
-  setLoading(true);
-  const result=await axios('/getNews')
-   dispatch({ type: "FETCH_NEWS",
-  data: result.data})
-  setLoading(false);           
- }
-
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = listnews.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = props.listnews.slice(indexOfFirstPost, indexOfLastPost);
  
   // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
 
 useEffect(()=>{
-    getNews()
+  
 },[])
 
 return(
@@ -57,10 +47,10 @@ return(
 <hr className='hr-news'></hr>
   <div >
 <p ref={props.refs} style={{color:'gray'}}>Tin tức</p>
-    <PostsNew posts={currentPosts} loading={loading}  />
+    <PostsNew posts={currentPosts}  />
       <Pagination
         postsPerPage={postsPerPage}
-        totalPosts={listnews.length}
+        totalPosts={props.listnews.length}
         paginate={paginate}
       />
   

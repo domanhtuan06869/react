@@ -160,6 +160,7 @@ const [colorInfo,setColorInfo]=useState('black')
         setOpen(false)
       }
     setColorRouter()
+
     },[])
 
     function setColorRouter(){
@@ -236,7 +237,7 @@ const [colorInfo,setColorInfo]=useState('black')
       return (
         <Typography variant="body2" color="textSecondary" align="center">
           {'Copyright © '}
-          <Link color="inherit" href="https://material-ui.com/">
+          <Link color="inherit" href="#">
            KYC
           </Link>{' '}
           {new Date().getFullYear()}

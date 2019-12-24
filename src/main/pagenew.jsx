@@ -7,7 +7,6 @@ import Modal from 'react-modal';
 import icon1 from '../assets/image/icon1.png'
 import icon2 from '../assets/image/icon2.png'
 import icon3 from '../assets/image/icon3.png'
-import { BrowserRouter, Route, Link, useParams } from "react-router-dom";
 import renderHTML from 'react-render-html';
 
 const customStyles = {
@@ -28,7 +27,7 @@ function Header(props) {
     const [showModal, setShowModal] = useState(false)
     const [intro, setIntro] = useState('')
     const [contenNews, setContenNews] = useState()
-
+    const project=useRef(null)
     function openModal() {
         setShowModal(true)
     }
@@ -46,12 +45,14 @@ function Header(props) {
         const result = await axios('/getOneNews?id=' + props.match.params.id)
 
         setContenNews(result.data.content)
+        project.current.scrollIntoView({ behavior: "auto" })
 
 
     }
     useEffect(() => {
         getOneNews()
         getIntro()
+
 
     }, [])
 
@@ -73,7 +74,7 @@ function Header(props) {
 
                 <img style={{ width: '100%' }} src={backgr}></img>
                 <button onClick={() => openModal()} className='btn-xemthem'>Xem thêm</button>
-                <div className='box-header'>
+                <div ref={project}  className='box-header'>
 
 
                     <div className='item-box-header' id='item-box-header1'>
@@ -95,7 +96,7 @@ function Header(props) {
 
                 </div>
             </div>
-            <div className='page-news'>
+            <div   className='page-news'>
                 <div style={{maxWidth:900, margin:'0 auto'}}>
                 {renderHTML(contenNews == undefined ? '<h1>Loading</h1>' : '' + contenNews + '')}
                 </div>

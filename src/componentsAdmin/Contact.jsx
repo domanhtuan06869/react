@@ -2,7 +2,8 @@ import React,{useRef,useState,useEffect} from 'react'
 
 import axios from 'axios'
 import Modal from 'react-modal';
-import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+
 import DataTable from 'react-data-table-component';
 import DeleteIcon from '@material-ui/icons/Delete';
 
@@ -58,12 +59,20 @@ async function deleteItem(data,url){
       'content-type': 'application/json'
     }
   }).then((res) => {
-    alert('success')
+    swalErr()
    
   }).catch(() => {
     alert('error')
   })
 }
+function swalErr(){
+  Swal.fire({  
+      title: 'Xóa Thành công',  
+      type: 'success',  
+      icon: 'error'
+  }); 
+}
+
 function convertArrayOfObjectsToCSV(array) {
 let dttr=[{name:'',email:'',number:''}]
   let result;

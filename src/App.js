@@ -19,21 +19,32 @@ import NewsAdmin from '../src/componentsAdmin/NewsAdmin'
 
 
 function App() {
+    const listnews= useSelector(state => state.reducerNews.data);
+const listSlider=useSelector(state=>state.reducerSlider.data)
 
-    async function fetchPosts(){
-        setLoading(true);
-        const result = await axios.get('/getNews');
-     
-        setLoading(false);
-      }
+    const dispatch = useDispatch();
     const [loading, setLoading] = useState(true)
+
+
+    async function getNews() {
+        const result=await axios('/getNews')
+         dispatch({ type: "FETCH_NEWS",
+        data: result.data})       
+       }
+       async function getSlide(){
+        const result=await axios('/getSlides')
+             dispatch({ type: "FETCH_SLIDER",
+             data: result.data})
+      }
+      
+async function getAll(){
+    await axios.all([getNews(),getSlide()]).then(()=>setLoading(false))
+}
     setTimeout(() => {
         setLoading(false)
     }, 5000);
     useEffect(()=>{
-        fetchPosts().then(()=>{
-            setLoading(false)   
-        })
+    getAll()
     },[])
   
 
@@ -45,7 +56,7 @@ function App() {
                 </div > :
                    <BrowserRouter>
                     <Switch>
-                    <Route exact path="/" component={Index} />
+                    <Route exact path='/' render={(props) => <Index listSlider={listSlider}  listnews={listnews} />}/>
                    <Route  path="/news/:id" component={Pagenew}></Route>
                    <Route  path="/login" component={withAuthLogin(Login)}></Route>
                     <Route   path="/admin" component={withAuth(Admin)}></Route>

@@ -3,11 +3,9 @@ import close from '../assets/image/close.png'
 
 import axios from 'axios'
 import Modal from 'react-modal';
-import DataTable from 'react-data-table-component';
-import IconButton from '@material-ui/core/IconButton';
+import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faDeaf } from '@fortawesome/free-solid-svg-icons'
-
+import Swal from "sweetalert2";
 
 const customStyles = {
     content: {
@@ -25,42 +23,40 @@ const customStyles = {
     }
 };
 function UpdateInfomation(props) {
-
-    const [listNews, setListNews] = useState([])
     const [showModal, setShowModal] = useState(false)
-    const [action,setAction]=useState('')
     const [id, setId] = useState('')
     const [content, setContent] = useState('')
-
-    const [loading, setLoading] = useState(false);
+    const[intro,setIntro]=useState({})
 
     useEffect(() => {
         getCustomer()
         props.setColor()
     }, [])
     async function getCustomer() {
-        setLoading(true)
-        const result = await axios('/getIntroductions')
-       setListNews(result.data)
+        const result = await axios('/getIntroduction')
+        setIntro(result.data)
     
-       setLoading(false);
+
+    }
+    function swal() {
+        Swal.fire({
+            title: 'Thành công',
+            type: 'success',
+            icon: 'success' 
+        });
+    }
+    function swalErr() {
+        Swal.fire({
+            title: 'Xóa Thành công',
+            type: 'success',
+            icon: 'error'
+        });
     }
 
-    function openModal(action, id,content) {
-        if (action === 'Thêm') {
-            setAction('Thêm')
-            setShowModal(true)
-        } else {
-            setAction('Sửa')
-            setShowModal(true)
-            setId(id)
-            setContent(content)
-
-
-        }
-
-
-
+    function openModal() {
+        setId(intro._id)
+        setContent(intro.content)
+        setShowModal(true)
 
     }
     function closeModal() {
@@ -77,50 +73,12 @@ function UpdateInfomation(props) {
                 'content-type': 'application/json'
             }
         }).then((res) => {
-            alert('success')
+            swal()
             closeModal(false)
         })
     }
-    async function deleteItem(data, url) {
-        await axios({
-            method: 'delete',
-            url: url,
-            data: data,
-
-            headers: {
-                'content-type': 'application/json'
-            }
-        }).then((res) => {
-            alert('success')
-
-        }).catch(() => {
-            alert('error')
-        })
-    }
-    const columns = [
-    
-        {
-            name: 'Nội dung',
-            selector: 'content',
-            sortable: true,
-            maxWidth:'1100px'
-        },
-        {
-
-            name: 'Sửa',
-            sortable: true,
-            button: true,
 
 
-            cell: (list) => <div>
-                <FontAwesomeIcon className='icon-edit' onClick={() => openModal('Sửa', list._id, list.content)} size="lg" title="Sửa" icon={faEdit} >
-
-                </FontAwesomeIcon>
-            </div>
-        },
-
-
-    ];
     return (
         <div>
             <Modal
@@ -132,15 +90,13 @@ function UpdateInfomation(props) {
                 contentLabel="Example Modal" >
 
                 <img className='mdclose' src={close} style={{ float: 'right', width: 20, height: 20 }} onClick={() => closeModal()}></img>
-                <h2>{action === 'Thêm' ? 'Thêm icon khách hàng' : 'Sửa Thông Tin Công Ty'}</h2>
+                <h2>{'Sửa Thông Tin Công Ty'}</h2>
                 <div style={{ height: 400, maxWidth: '100%', margin: 10 }}>
                     <div class="form-group">
                         <label for="title">Thông tin</label>
-                        <input
-                            type="text"
-
+                        <textarea rows="9" cols="100"
                             class="form-control"
-                            placeholder="link url"
+                            placeholder="Giới thiệu"
                             value={content}
                             onChange={(text) => setContent(text.target.value)}
                         />
@@ -150,14 +106,12 @@ function UpdateInfomation(props) {
 
                     <div style={{ marginTop: 30 }} class="form-group">
                         <button onClick={() => {
-                            action === 'Thêm' ?
-                                insertupdate({
-                                    content:content
-                                }, '/postCustomer', 'post').then(() => getCustomer()) : insertupdate({
-                                    id:id,
-                                    content:content
-                                }, '/updateintro', 'put').then(() => getCustomer())
-                        }} className="btn btn-info">{action}</button>
+
+                            insertupdate({
+                                id: id,
+                                content: content
+                            }, '/updateIntro', 'put').then(() => getCustomer())
+                        }} className="btn btn-info">Sửa</button>
                     </div>
                 </div>
 
@@ -165,13 +119,10 @@ function UpdateInfomation(props) {
             </Modal>
 
             <div>
+                <button onClick={() => openModal('Thêm')} style={{ float: 'right' }} type="button" class="btn btn-info d-none d-lg-block m-l-15"> <FontAwesomeIcon icon={faPlus} /> Update</button>
+
                 <h2>Quản lí giới thiệu công ty</h2>
-                <DataTable
-                    progressPending={loading}
-                    columns={columns}
-                    data={listNews}
-                    pagination
-                />
+                <h6 style={{ textAlign: 'justify' }}>  {intro.content}  </h6>
             </div>
 
         </div>

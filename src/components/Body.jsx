@@ -20,9 +20,9 @@ useEffect(()=>{
 return(
 <div ref={props.refs} className='body'>
     <p onClick={()=>{}}>CÁC ĐỐI TÁC CỦA CHÚNG TÔI</p>
-    <div   className='div-img-doitac' >
+    <div  className='div-img-doitac' >
         {customer.map((item,index)=>(
-         <img key={item._id} src={doitac}></img>)
+         <img style={{height:100}} key={item._id} src={item.imagecustomer}></img>)
         )
              }
       
@@ -31,7 +31,7 @@ return(
        
     </div>
 <hr className={'-hr'}></hr>
-<Slide ></Slide>
+<Slide listSlider={props.listSlider} ></Slide>
 
 
 </div>
