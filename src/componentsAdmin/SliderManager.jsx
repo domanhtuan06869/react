@@ -12,12 +12,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
 import DeleteIcon from '@material-ui/icons/Delete';
 import FileBase64 from 'react-file-base64';
-import Swal from "sweetalert2"; 
+import Swal from "sweetalert2";
 
 const customStyles = {
     content: {
-        width: '70%',
-        height: '60%',
+  
         top: '50%',
         left: '50%',
         right: 'auto',
@@ -39,7 +38,7 @@ function SliderManager(props) {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
     const [url, setUrl] = useState('')
-    const[checked,setChecked]=useState(false)
+    const [checked, setChecked] = useState(false)
 
 
     const [loading, setLoading] = useState(false);
@@ -72,20 +71,20 @@ function SliderManager(props) {
 
 
     /////////////////////////////////////////////////////////
-    const Posts = ({ posts, loading, openModal ,deleteItem }) => {
+    const Posts = ({ posts, loading, openModal, deleteItem }) => {
 
         if (loading) {
-            return <h2 style={{margin:'0 auto',textAlign:'center'}}>Loading...</h2>;
+            return <h2 style={{ margin: '0 auto', textAlign: 'center' }}>Loading...</h2>;
         }
 
         return (
             <div class="row">
 
                 {posts.map((list) => (
-                    <div  key={list._id} class="col-lg-3 col-md-12 mt-4">
+                    <div key={list._id} class="col-lg-3 col-md-12 mt-4">
                         <div class="card">
-                      
-                            <img style={{height:200}} class="card-img-top img-responsive" src={list.UrlImage} alt="Card image cap" />
+
+                            <img style={{ height: 200 }} class="card-img-top img-responsive" src={list.UrlImage} alt="Card image cap" />
                             <div class="card-body">
                                 <p class="card-text">{list.Title}</p>
 
@@ -93,9 +92,9 @@ function SliderManager(props) {
                             <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
                                 <span class="float-left">{list.Stt}</span>
                                 <span class="float-right">
-                                    <FontAwesomeIcon style={{marginRight:4,paddingTop:2}} className='icon-edit' onClick={() => openModal('Sửa', list._id, list.Stt,list.Title,list.Content,list.UrlImage)} size="lg" title="Sửa" icon={faEdit} >
+                                    <FontAwesomeIcon style={{ marginRight: 4, paddingTop: 2 }} className='icon-edit' onClick={() => openModal('Sửa', list._id, list.Stt, list.Title, list.Content, list.UrlImage)} size="lg" title="Sửa" icon={faEdit} >
                                     </FontAwesomeIcon>
-                                    <DeleteIcon onClick={()=>deleteItem({id:list._id},'/deleteSlider').then(()=>getSlider())} className='delete-icon' titleAccess='Xóa'></DeleteIcon>
+                                    <DeleteIcon onClick={() => deleteItem({ id: list._id }, '/deleteSlider').then(() => getSlider())} className='delete-icon' titleAccess='Xóa'></DeleteIcon>
                                 </span>
                             </div>
                         </div>
@@ -149,21 +148,21 @@ function SliderManager(props) {
 
     }
 
-    function swal(){
-        Swal.fire({  
-            title: 'Thành công',  
-            type: 'success',  
-            icon: 'success' 
-        }); 
+    function swal() {
+        Swal.fire({
+            title: 'Thành công',
+            type: 'success',
+            icon: 'success'
+        });
     }
-    function swalErr(){
-      Swal.fire({  
-          title: 'Xóa Thành công',  
-          type: 'success',  
-          icon: 'error'
-      }); 
+    function swalErr() {
+        Swal.fire({
+            title: 'Xóa Thành công',
+            type: 'success',
+            icon: 'error'
+        });
     }
-    
+
     async function insertupdate(data, url, method) {
         await axios({
             method: method,
@@ -206,7 +205,7 @@ function SliderManager(props) {
 
                 <img className='mdclose' src={close} style={{ float: 'right', width: 20, height: 20 }} onClick={() => closeModal()}></img>
                 <h2>{action === 'Thêm' ? 'Thêm Slider' : 'Sửa Slider '}</h2>
-                <div style={{ maxWidth: '100%', margin: 10 }}>
+                <div class="card card-body" style={{ margin: 10 }}>
                     <div class="form-group">
                         <label for="Stt">Stt</label>
                         <input
@@ -242,21 +241,21 @@ function SliderManager(props) {
                         />
                     </div>
                     <div class="form-group">
-                        <label for="content">UrlImage</label>
+                        <label for="image">Ảnh</label>
                         <div>
-                        {checked===false?  <FileBase64
+                            {checked === false ? <FileBase64
                                 multiple={false}
-                                onDone={(file) => setUrl(file.base64)} />:  <input 
-                                type="text"
-                                
-                                class="form-control"
-                                placeholder="content"
-                                value={url}
-                                onChange={(text) => setUrl(text.target.value)}
-    
-                            />}    {url === '' ? null : <img style={{ width: 100, height: 50 ,marginTop:true?3:0 }} src={url}></img>} 
-                             <label>Chọn ảnh</label>   <input type='radio' checked={checked===false?true:false} onClick={()=>setChecked(false)} name ="cbSlider" />
-                             <label>Nhập link</label>     <input type='radio' onClick={()=>setChecked(true)}  name="cbSlider"/>
+                                onDone={(file) => setUrl(file.base64)} /> : <input
+                                    type="text"
+
+                                    class="form-control"
+                                    placeholder="image"
+                                    value={url}
+                                    onChange={(text) => setUrl(text.target.value)}
+
+                                />}    {url === '' ? null : <img style={{ width: 100, height: 50, marginTop: true ? 3 : 0 }} src={url}></img>}
+                            <label>Chọn ảnh</label>   <input type='radio' checked={checked === false ? true : false} onClick={() => setChecked(false)} name="cbSlider" />
+                            <label>Nhập link</label>     <input type='radio' onClick={() => setChecked(true)} name="cbSlider" />
                         </div>
 
                     </div>
@@ -286,10 +285,10 @@ function SliderManager(props) {
             </Modal>
 
             <div >
-            <button onClick={()=>openModal('Thêm')} style={{float:'right'}} type="button" class="btn btn-info d-none d-lg-block m-l-15"> <FontAwesomeIcon icon={faPlus} /> Create New</button>
+                <button onClick={() => openModal('Thêm')} style={{ float: 'right' }} type="button" class="btn btn-info d-none d-lg-block m-l-15"> <FontAwesomeIcon icon={faPlus} /> Create New</button>
 
                 <h2>Quản lí Slider</h2>
-                                   
+
                 <Posts posts={currentPosts} loading={loading} openModal={openModal} deleteItem={deleteItem} />
                 <Pagination
                     postsPerPage={postsPerPage}

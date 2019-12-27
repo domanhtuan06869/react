@@ -16,8 +16,7 @@ import Swal from "sweetalert2";
 
 const customStyles = {
     content: {
-        width: '70%',
-        height: '50%',
+     
         top: '50%',
         left: '50%',
         right: 'auto',
@@ -36,6 +35,7 @@ function Customer(props) {
     const [action, setAction] = useState('')
     const [id, setId] = useState('')
     const [url, setUrl] = useState('')
+    const [checked, setChecked] = useState(false)
 
     const [loading, setLoading] = useState(false);
 
@@ -70,6 +70,7 @@ function Customer(props) {
     function closeModal() {
         setShowModal(false)
         setUrl('')
+        setChecked(false)
     }
 
 
@@ -131,14 +132,25 @@ function Customer(props) {
 
                 <img className='mdclose' src={close} style={{ float: 'right', width: 20, height: 20 }} onClick={() => closeModal()}></img>
                 <h2>{action === 'Thêm' ? 'Thêm icon khách hàng' : 'Sửa icon khách hàng'}</h2>
-                <div style={{ height: 400, maxWidth: '100%', margin: 10 }}>
+                <div class="card card-body">
                     <div class="form-group">
                         <label for="title">Chọn ảnh khách hàng</label>
                         <div>
-                            <FileBase64
-                                multiple={false}
-                                onDone={getFiles} />  {url === '' ? null : <img style={{ width: 100, height: 50 }} src={url}></img>}
-                        </div>
+
+{checked === false ? <FileBase64
+    multiple={false}
+    onDone={(file) => setUrl(file.base64)} /> : <input
+        type="text"
+
+        class="form-control"
+        placeholder="image"
+        value={url}
+        onChange={(text) => setUrl(text.target.value)}
+
+    />}    {url === '' ? null : <img style={{ width: 100, height: 50, marginTop: true ? 3 : 0 }} src={url}></img>}
+<label>Chọn ảnh</label>   <input type='radio' checked={checked === false ? true : false} onClick={() => setChecked(false)} name="cbSlider" />
+<label>Nhập link</label>     <input type='radio' onClick={() => setChecked(true)} name="cbSlider" />
+</div>
 
                     </div>
 

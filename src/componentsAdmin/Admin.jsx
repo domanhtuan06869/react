@@ -117,12 +117,12 @@ function Admin(props) {
   const [open, setOpen] = React.useState(true);
 
 const [colorHome,setColorHome]=useState('blue')
-const[colorContact,setColorContact]=useState('black')
-const [colorNews,setColorNews]=useState('black')
-const [colorCustomer,setColorCustomer]=useState('black')
-const [colorSlider,setColorSilder]=useState('black')
-const [colorTeam,setColorTeam]=useState('black')
-const [colorInfo,setColorInfo]=useState('black')
+const[colorContact,setColorContact]=useState('#3C3C3C')
+const [colorNews,setColorNews]=useState('#3C3C3C')
+const [colorCustomer,setColorCustomer]=useState('#3C3C3C')
+const [colorSlider,setColorSilder]=useState('#3C3C3C')
+const [colorTeam,setColorTeam]=useState('#3C3C3C')
+const [colorInfo,setColorInfo]=useState('#3C3C3C')
 
 
 
@@ -166,69 +166,69 @@ const [colorInfo,setColorInfo]=useState('black')
     function setColorRouter(){
       if(props.location.hash==='#/'){
         setColorHome('blue')
-        setColorContact('black')
-        setColorNews('black')
-        setColorCustomer('black')
-        setColorSilder('black')
-        setColorTeam('black')
+        setColorContact('#3C3C3C')
+        setColorNews('#3C3C3C')
+        setColorCustomer('#3C3C3C')
+        setColorSilder('#3C3C3C')
+        setColorTeam('#3C3C3C')
 
     
       }
      else if(props.location.hash==='#/contact'){
         setColorContact('blue')
-        setColorHome('black')
-        setColorNews('black')
-        setColorCustomer('black')
-        setColorSilder('black')
-        setColorTeam('black')
-        setColorInfo('black')
+        setColorHome('#3C3C3C')
+        setColorNews('#3C3C3C')
+        setColorCustomer('#3C3C3C')
+        setColorSilder('#3C3C3C')
+        setColorTeam('#3C3C3C')
+        setColorInfo('#3C3C3C')
     
       } else if(props.location.hash==='#/newsAdmin'){
-        setColorContact('black')
-        setColorHome('black')
+        setColorContact('#3C3C3C')
+        setColorHome('#3C3C3C')
         setColorNews('blue')
-        setColorCustomer('black')
-        setColorSilder('black')
-        setColorTeam('black')
-        setColorInfo('black')
+        setColorCustomer('#3C3C3C')
+        setColorSilder('#3C3C3C')
+        setColorTeam('#3C3C3C')
+        setColorInfo('#3C3C3C')
 
         
       } else if(props.location.hash==='#/customer'){
-        setColorContact('black')
-        setColorHome('black')
-        setColorNews('black')
+        setColorContact('#3C3C3C')
+        setColorHome('#3C3C3C')
+        setColorNews('#3C3C3C')
         setColorCustomer('blue')
-        setColorSilder('black')
-        setColorTeam('black')
-        setColorInfo('black')
+        setColorSilder('#3C3C3C')
+        setColorTeam('#3C3C3C')
+        setColorInfo('#3C3C3C')
 
       }
       else if(props.location.hash==='#/slider'){
-        setColorContact('black')
-        setColorHome('black')
-        setColorNews('black')
-        setColorCustomer('black')
+        setColorContact('#3C3C3C')
+        setColorHome('#3C3C3C')
+        setColorNews('#3C3C3C')
+        setColorCustomer('#3C3C3C')
         setColorSilder('blue')
-        setColorTeam('black')
-        setColorInfo('black')
+        setColorTeam('#3C3C3C')
+        setColorInfo('#3C3C3C')
 
       }
       else if(props.location.hash==='#/updateteam'){
-        setColorContact('black')
-        setColorHome('black')
-        setColorNews('black')
-        setColorCustomer('black')
-        setColorSilder('black')
+        setColorContact('#3C3C3C')
+        setColorHome('#3C3C3C')
+        setColorNews('#3C3C3C')
+        setColorCustomer('#3C3C3C')
+        setColorSilder('#3C3C3C')
         setColorTeam('blue')
-        setColorInfo('black')
+        setColorInfo('#3C3C3C')
       }
       else if(props.location.hash==='#/updateinfomation'){
-        setColorContact('black')
-        setColorHome('black')
-        setColorNews('black')
-        setColorCustomer('black')
-        setColorSilder('black')
-        setColorTeam('black')
+        setColorContact('#3C3C3C')
+        setColorHome('#3C3C3C')
+        setColorNews('#3C3C3C')
+        setColorCustomer('#3C3C3C')
+        setColorSilder('#3C3C3C')
+        setColorTeam('#3C3C3C')
         setColorInfo('blue')
       }
     }

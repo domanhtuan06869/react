@@ -77,18 +77,16 @@ export default function Home() {
       <div class="row">
     
       {posts.map((list)=>(
-  <div class="col-lg-6 col-md-12">
-  <div class="card">
-    <div class="card-body">
-      <h4 class="card-title">Basic Card</h4>
+  <div class="col-lg-3 col-md-12 ">
+  <div class="card text-center">
+    <div class="card-body  ">
+  
+      <p class="card-subtitle text-muted">Basic Card With Header &amp; Footer</p>
+      <img height="100px" width="100px"class="img-responsive rounded-circle" src={list.image} alt="Card image cap"/>
+    </div>
+
+    <h4 class="card-title">Basic Card</h4>
       <h6 class="card-subtitle text-muted">Basic Card With Header &amp; Footer</h6>
-    </div>
-    <img class="" src={list.image} alt="Card image cap"/>
-    <div class="card-body">
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="card-link">Card link</a>
-      <a href="#" class="card-link">Another link</a>
-    </div>
     <div class="card-footer border-top-blue-grey border-top-lighten-5 text-muted">
       <span class="float-left">3 hours ago</span>
       <span class="float-right">

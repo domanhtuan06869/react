@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 const customStyles = {
     content: {
         width: '70%',
-        height: '50%',
+  
         top: '50%',
         left: '50%',
         right: 'auto',
@@ -91,7 +91,7 @@ function UpdateInfomation(props) {
 
                 <img className='mdclose' src={close} style={{ float: 'right', width: 20, height: 20 }} onClick={() => closeModal()}></img>
                 <h2>{'Sửa Thông Tin Công Ty'}</h2>
-                <div style={{ height: 400, maxWidth: '100%', margin: 10 }}>
+                <div class="card card-body" style={{  maxWidth: '100%', margin: 10 }}>
                     <div class="form-group">
                         <label for="title">Thông tin</label>
                         <textarea rows="9" cols="100"

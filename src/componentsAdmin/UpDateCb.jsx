@@ -15,8 +15,8 @@ import FileBase64 from 'react-file-base64';
 
 const customStyles = {
     content: {
-        width: '70%',
-        height: '50%',
+    
+  
         top: '50%',
         left: '50%',
         right: 'auto',
@@ -38,6 +38,7 @@ function UpdateCB(props) {
     const [position, setPosition] = useState('')
     const [description, setDescription] = useState('')
     const [avatar, setAvatar] = useState('')
+    const [checked, setChecked] = useState(false)
 
     const [loading, setLoading] = useState(false);
 
@@ -75,6 +76,15 @@ function UpdateCB(props) {
     }
     function closeModal() {
         setShowModal(false)
+        setTimeout(()=>{
+            setChecked(false)
+            setId('')
+            setName('')
+            setPosition('')
+            setDescription('')
+            setAvatar('')
+        },500)
+    
     }
 
 
@@ -162,7 +172,7 @@ function UpdateCB(props) {
 
                 <img className='mdclose' src={close} style={{ float: 'right', width: 20, height: 20 }} onClick={() => closeModal()}></img>
                 <h2>{action === 'Thêm' ? 'Thêm avatar Cán bộ' : 'Sửa Thông Tin Cán bộ'}</h2>
-                <div style={{ height: 400, maxWidth: '100%', margin: 10 }}>
+                <div class="card card-body">
                     <div class="form-group">
                         <label for="title">Name</label>
                         <input
@@ -199,9 +209,19 @@ function UpdateCB(props) {
                     </div>
                     <div class="form-group">
                     <div>
-                        <FileBase64
-                            multiple={false}
-                            onDone={(file)=>setAvatar(file.base64)} />  {avatar===''?null: <img style={{width:100,height:50}} src={avatar}></img>}
+                            {checked === false ? <FileBase64
+                                multiple={false}
+                                onDone={(file) => setAvatar(file.base64)} /> : <input
+                                    type="text"
+
+                                    class="form-control"
+                                    placeholder="image"
+                                    value={avatar}
+                                    onChange={(text) => setAvatar(text.target.value)}
+
+                                />}    {avatar === '' ? null : <img style={{ width: 100, height: 50, marginTop: true ? 3 : 0 }} src={avatar}></img>}
+                            <label>Chọn ảnh</label>   <input type='radio' checked={checked === false ? true : false} onClick={() => setChecked(false)} name="cbSlider" />
+                            <label>Nhập link</label>     <input type='radio' onClick={() => setChecked(true)} name="cbSlider" />
                         </div>
                     </div>
 
