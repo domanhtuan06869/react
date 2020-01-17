@@ -1,4 +1,4 @@
-import React ,{ useRef, useEffect,useState,Suspense}from 'react'
+import React, { useRef, useEffect, useState, Suspense } from 'react'
 
 import BoxHeader from './BoxHeader'
 import { Button } from 'reactstrap';
@@ -9,37 +9,34 @@ import product from '../assets/image/spnoibat.png'
 import Slide from '../components/Slide'
 
 const Slider = React.lazy(() => import('../components/Slide'));
-function Body(props){
-    const [customer,setCustomer]=useState([])
-    async function getCustomer(){
-          const result= await axios('/getCustomer')
+function Body(props) {
+    const [customer, setCustomer] = useState([])
+    async function getCustomer() {
+        const result = await axios('/getCustomer')
         //  console.log(result.data)
-          setCustomer(result.data)
+        setCustomer(result.data)
     }
-useEffect(()=>{
-    getCustomer()
-},[])
-return(
-<div ref={props.refs} className='body'>
-    <p>CÁC ĐỐI TÁC CỦA CHÚNG TÔI</p>
-    <div  className='div-img-doitac' >
-        {customer.map((item,index)=>(
-         <img style={{height:100}} key={item._id} src={item.imagecustomer}></img>)
-        )
-             }
-      
-   
+    useEffect(() => {
+        getCustomer()
+    }, [])
+    return (
+        <div ref={props.refs} className='body'>
+            <p style={{marginTop:20}}>CÁC ĐỐI TÁC CỦA CHÚNG TÔI</p>
+            <div className='div-img-doitac' >
+                <div className="row">
 
-       
-    </div>
-<hr className={'-hr'}></hr>
-<Suspense fallback={<div>Loading...</div>}>
-<Slider listSlider={props.listSlider} />
-      </Suspense>
+                    {customer.map((item, index) => (
+                        <div className="col-lg-3 text-center mt-4">
+                            <img style={{ height: 100 }} key={item._id} src={item.imagecustomer}></img>
+                        </div>
+                    ))
+                    }
 
+                </div>
 
+            </div>
 
-</div>
-)
+        </div>
+    )
 }
 export default Body

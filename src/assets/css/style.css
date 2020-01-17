@@ -20,7 +20,9 @@ header {
   background: #000000;
   z-index: 10;
 }
-
+.header{
+  position: relative;
+}
 
 .page {
   margin-top: 20px;

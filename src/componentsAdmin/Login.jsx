@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import { easings } from 'react-animation'
 
+const style = {
+  animation: `pop-in ${easings.easeInSine} 500ms forwards`
+}
 export default class Login extends Component {
   constructor(props) {
+   
     super(props)
     this.state = {
       email : '',
@@ -41,10 +46,11 @@ export default class Login extends Component {
   }
 
   render() {
+    
     return (
       
      
-      <div class="row mt-5">
+      <div style={style} class="row mt-5">
       <div class="col-md-6 m-auto">
         <div class="card card-body">
           <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>  Login</h1>

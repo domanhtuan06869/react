@@ -5,7 +5,11 @@ import close from '../assets/image/close.png'
 import axios from 'axios'
 import Modal from 'react-modal';
 import { BrowserRouter, Route, Link,useParams } from "react-router-dom";
+import { easings } from 'react-animation'
 
+const style = {
+  animation: `pop-in ${easings.easeInSine} 1000ms forwards`
+}
 const customStyles = {
     content : {
       width                 : '70%',
@@ -47,7 +51,7 @@ function Header(props){
 let {id}=useParams()
 
 return(
-<div  className='header'>
+<div style={style}  className='header'>
 <Modal      
         closeTimeoutMS={1000}
           isOpen={showModal}
@@ -64,7 +68,7 @@ return(
 
     <img style={{width:'100%'}} src={backgr}></img>
 <button onClick={()=>openModal()}  className='btn-xemthem'>Xem thêm</button>
-<BoxHeader sc={props.sc} scb={props.scb} scproject={props.scproject} ></BoxHeader>
+
 </div>
 )
 }

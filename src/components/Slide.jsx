@@ -19,11 +19,6 @@ return(
       {listSlider.map((item, index) => (
       <div key={item._id} className='body-product' >
       <div className='product'>
-      <p>{item.Stt}</p>
-      <h3>{item.Title}</h3>
-      <p id='product-content'>{item.Content}</p>
-      </div>
-      <div className='product'>
       <img  class="card-img-top img-responsive" src={item.UrlImage} alt="Card image cap" />
       
       </div>

@@ -13,10 +13,7 @@
     .-hr {
         width: 100%;
     }
-    .header {
-        height: 300px;
-        position: relative;
-    }
+
     .box-header {
         text-align: center;
         top: 65%;
@@ -41,10 +38,10 @@
     }
     .btn-xemthem {
         position: absolute;
-        top: 42%;
+        top: 58%;
         left: 19%;
         width: 16%;
-        height: 5%;
+        height: 6%;
         background-image: linear-gradient(to top right, #3A327C 0%, #4783E6 50%, #30EBF2 100%);
         border: none;
         color: antiquewhite;
@@ -60,8 +57,7 @@
         padding: 5px;
     }
     .body {
-        height: 800px;
-        margin-top: 110%;
+        margin-top: 2%;
         text-align: center
     }
     .news{
@@ -227,10 +223,7 @@
         text-align: center;
        margin-top: 1%;
     }
-    .header {
-        height: 800px;
-        position: relative;
-    }
+ 
     .box-header {
         text-align: center;
         top: 85%;
@@ -255,10 +248,10 @@
     }
     .btn-xemthem {
         position: absolute;
-        top: 55%;
+        top: 50%;
         left: 18.3%;
         width: 15%;
-        height: 4%;
+        height: 6%;
         background-image: linear-gradient(to top right, #3A327C 0%, #4783E6 50%, #30EBF2 100%);
         border: none;
         color: antiquewhite
@@ -274,8 +267,7 @@
         padding: 5px;
     }
     .body {
-        height: 800px;
-        margin-top: 17%;
+        margin-top: 1%;
         text-align: center
     }
     .product {
@@ -416,10 +408,7 @@
         margin-top: 20%;
     }
 
-    .header {
-        height: 800px;
-        position: relative;
-    }
+  
     .box-header {
         text-align: center;
         top: 55%;
@@ -442,10 +431,10 @@
     }
     .btn-xemthem {
         position: absolute;
-        top: 39%;
+        top: 50%;
         left: 19.3%;
         width: 15%;
-        height: 4%;
+        height: 6%;
         background-image: linear-gradient(to top right, #3A327C 0%, #4783E6 50%, #30EBF2 100%);
         border: none;
         color: antiquewhite
@@ -461,8 +450,7 @@
         padding: 5px;
     }
     .body {
-        height: 800px;
-        margin-top:-5%;
+        margin-top:1%;
         text-align: center
     }
     .product {
@@ -607,11 +595,7 @@ and (-webkit-min-device-pixel-ratio: 1) {
     .render-news{
         padding: 1%;
     }
-    .header {
 
-        height: 600px;
-        position: relative;
-    }
     .box-header {
         text-align: center;
         top: 51%;
@@ -636,10 +620,10 @@ and (-webkit-min-device-pixel-ratio: 1) {
     }
     .btn-xemthem {
         position: absolute;
-        top: 40%;
+        top: 51%;
         left: 19.3%;
         width: 15%;
-        height: 4%;
+        height: 6%;
         background-image: linear-gradient(to top right, #3A327C 0%, #4783E6 50%, #30EBF2 100%);
         border: none;
         color: antiquewhite
@@ -655,8 +639,7 @@ and (-webkit-min-device-pixel-ratio: 1) {
         padding: 5px;
     }
     .body {
-        height: 600px;
-        margin-top: -5%;
+        margin-top: 1%;
         text-align: center
     }
     .product {
@@ -784,3 +767,12 @@ and (-webkit-min-device-pixel-ratio: 1) {
     }
 
  }
+
+   
+   /* iphone XS Max */
+   @media only screen and (min-device-width : 414px) and (max-device-height : 896px) and (-webkit-device-pixel-ratio : 3) {  .btn-xemthem{
+    top:53%
+} }
+
+@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (-webkit-device-pixel-ratio: 3) {  .btn-xemthem{
+    top:57%}}

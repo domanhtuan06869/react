@@ -112,7 +112,6 @@ const useStyles = makeStyles(theme => ({
 
 
 function Admin(props) {
-
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 
@@ -156,6 +155,9 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
 
 
     useEffect(()=>{
+  //    document.getElementById('navbar').outerHTML = '';
+
+
       if(window.outerWidth<=676){
         setOpen(false)
       }
