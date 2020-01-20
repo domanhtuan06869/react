@@ -8,15 +8,11 @@ import About from './about'
 
 import Login from '../componentsAdmin/Login'
 import { easings } from 'react-animation'
+import { fontFamily } from '@material-ui/system';
 
 const style = {
   animation: `pop-in ${easings.easeOutExpo} 500ms forwards`
 }
-
-
-
-
-
 
 function Navigation(props) {
 
@@ -31,9 +27,11 @@ function Navigation(props) {
   useEffect(()=>{
 
   },[])
-
+const fontsize={fontFamily:' Avenir, Helvetica, Arial, sans-serif',fontSize:20}
   return (
-      <BrowserRouter>
+<BrowserRouter>
+
+ 
       <nav style={{backgroundColor:'rgb(6, 32, 74)'}} class="navbar navbar-expand-lg navbar-dark static-top">
   <div style={style} class="container">
     <NavLink class="navbar-brand" to="/">
@@ -46,19 +44,19 @@ function Navigation(props) {
       <ul class="navbar-nav ml-auto">
         
         <NavLink to="/about" class="nav-item">
-          <a class="nav-link" >Về chúng tôi</a>
+          <a style={fontsize} class="nav-link" >Về chúng tôi</a>
         </NavLink>
         <NavLink to="/log" class="nav-item">
-          <a class="nav-link" href="#">Sẩn phẩm dịch vụ</a>
+          <a style={fontsize} class="nav-link" >Sản phẩm dịch vụ</a>
         </NavLink>
         <li class="nav-item">
-          <a class="nav-link" href="#">Dự án đã thực hiện</a>
+          <a style={fontsize} class="nav-link" >Dự án đã thực hiện</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Tin tức tuyển dụng</a>
+          <a style={fontsize} class="nav-link" >Tin tức tuyển dụng</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Liên hệ</a>
+          <a style={fontsize} class="nav-link" >Liên hệ</a>
         </li>
       </ul>
     </div>
@@ -67,16 +65,18 @@ function Navigation(props) {
 
 <div style={{ width: '100%' }} className="">
 
+<Switch>
+<Route exact path='/' render={()=><Index listSlider={props.listSlider} listnews={props.listnews}  />}/>
+<Route  path='/about' component={() => <h1>Về chúng tôi</h1>}/>
+</Switch>
 
-<Route exact path='/' render={(prop) => <Index listSlider={props.listSlider} listnews={props.listnews}  />}/>
-<Route exact path='/log' render={(prop) => <Login listSlider={props.listSlider} listnews={props.listnews}  />}/>
-<Route exact path='/about' render={(prop) => <About listSlider={props.listSlider} listnews={props.listnews}  />}/>
 
 
 </div>
 
+</BrowserRouter>
 
-      </BrowserRouter>
+  
   
 
 

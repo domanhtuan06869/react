@@ -1,45 +1,57 @@
-import React,{useRef,useState,useEffect} from 'react'
-import ring from '../assets/image/ring.png'
+import React, { useRef, useState, useEffect } from 'react'
+import spnoibat from '../assets/image/spnoibat.png'
 import avatar from '../assets/image/anht.jpg'
 import axios from 'axios'
 import { useDispatch, useSelector } from "react-redux";
+import ScrollAnimation from 'react-animate-on-scroll';
 
-function Testimonisls(props){
+function Testimonisls(props) {
   const listTeam = useSelector(state => state.reducerTeam.data);
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-async function getTeam() {
- const rs=await axios('/getTeam')
-  dispatch({ type: "FETCH_TEAM",
- data: rs.data})
-              
-}
+  async function getTeam() {
+    const rs = await axios('/getTeam')
+    dispatch({
+      type: "FETCH_TEAM",
+      data: rs.data
+    })
 
-useEffect(()=>{
-  getTeam()
+  }
+
+  useEffect(() => {
+    getTeam()
 
 
-},[])
-
-return(
-<div  className='testimonisls'>
-<p  id='testimonisls-p'>Testimonials</p>
-   <h2 id='testimonisls-h'>Giving Your Awesome Business Fresh Start With US</h2>
-   <p id='testimonisls-p1'>This should be used to tell a story and let your users know a little more about your product or service. How can you benefit them?</p>
-   <div className='testimonisls-fullbox'> 
-{listTeam.map((list,index)=> (
-  <div key={list._id} className='testimonisls-box'>
-  <div className='testimonisls-box-content'>
-   <img className='testimonisls-box-img' src={ring}></img>
-  <p className='testimonisls-box-content-p'>{list.description}</p>
-</div>
-<img className='testimonisls-box-avatar' src={list.avatar}></img>
-<p className='testimonisls-box-name'>{list.name}</p>
-<p className='testimonisls-box-regency'>{list.position}</p>
-</div>
-    ))}
+  }, [])
+const styleimg={ borderStyle: 'dashed', borderColor: '#1B1162',backgroundColor:'#02c0dd' ,borderWidth:0.5}
+  return (
+<ScrollAnimation animateIn='bounceInRight'
+  animateOut='bounceOutLeft'>
+  <div style={{ backgroundColor: '#1B1162' }} className=' text-center'>
+      <h2 style={{ color: '#FFF', marginTop: 20 }}>Dự án nổi bật</h2>
+      <div style={{ paddingBottom: 30 }} class="container">
+        <div class="row justify-content-md-center">
+          <div style={styleimg} className="col-lg-3 col-md-4 p-0">
+            <img className="img-responsive img-fluid"  src={spnoibat}></img>
+            <div><h4 style={{color:'#FFF',fontWeight:'bold'}}>BỘ TIÊU CHÍ</h4></div>
+          </div>
+          <div style={styleimg} className="col-lg-3 col-md-4 p-0">
+            <img className="img-responsive img-fluid"  src={spnoibat}></img>
+            <div><h4 style={{color:'#FFF',fontWeight:'bold'}}>SƠN HÀ</h4></div>
+          </div>
+          <div style={styleimg} className="col-lg-3 col-md-4 p-0">
+            <img className="img-responsive img-fluid"  src={spnoibat}></img>
+            <div><h4 style={{color:'#FFF',fontWeight:'bold'}}>HUY HOÀNG</h4></div>
+          </div>
+          <div style={styleimg} className="col-lg-3 col-md-4 p-0">
+            <img className="img-responsive img-fluid"  src={spnoibat}></img>
+            <div><h4 style={{color:'#FFF',fontWeight:'bold'}}>NOSA</h4></div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-)
+</ScrollAnimation>
+
+  )
 }
 export default Testimonisls

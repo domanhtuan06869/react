@@ -8,6 +8,8 @@ import icon1 from '../assets/image/icon1.png'
 import icon2 from '../assets/image/icon2.png'
 import icon3 from '../assets/image/icon3.png'
 import renderHTML from 'react-render-html';
+import { BrowserRouter,HashRouter,NavLink, Route, Link,Switch } from "react-router-dom";
+import UpdateTeams from '../componentsAdmin/UpDateCb'
 
 const customStyles = {
     content: {
@@ -58,6 +60,9 @@ function Header(props) {
 
     return (
         <div className='Main'>
+            <BrowserRouter>
+            <Route exact  path="/" component={<h1>erro</h1>}></Route>
+            </BrowserRouter>
             <div className='header'>
                 <Modal
                     closeTimeoutMS={1000}

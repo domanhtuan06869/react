@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../src/assets/css/laptopdesktop.css';
 import Navigation from './main/Navigation'
 import '../src/assets/css/stylemobile.css';
+import "animate.css/animate.min.css";
 import axios from 'axios';
 import { BallBeat } from 'react-pure-loaders';
 import Pagenew from '../src/main/pagenew'
@@ -13,8 +14,7 @@ import Login from '../src/componentsAdmin/Login'
 import AddAdmin from '../src/componentsAdmin/AddAdmin'
 import withAuth from '../src/componentsAdmin/withAuth'
 import withAuthLogin from '../src/componentsAdmin/withAuthLogin'
-import Contact from '../src/componentsAdmin/Contact'
-import NewsAdmin from '../src/componentsAdmin/NewsAdmin'
+
 import logo from '../src/assets/image/kyc-logo.png'
 
 function App() {
@@ -57,17 +57,18 @@ function App() {
             <BallBeat color={'#123abc'}
                 loading={loading} />
         </div > :
-            <BrowserRouter>
+            <div>
 
-                <Route exact path='/' render={(props) => <Navigation listSlider={listSlider} listnews={listnews} />} />
-                <Route path="/news/:id" component={Pagenew}></Route>
+                <BrowserRouter >
+          
+            
+                <Route  path="/login" component={withAuthLogin(Login)}></Route>
+                <Route exact  path="/admin" component={withAuth(Admin)}></Route>
+                <Route exact  path='/' render={() => <Navigation listSlider={listSlider} listnews={listnews} />} />
+                </BrowserRouter>
 
-                <Route path="/login" component={withAuthLogin(Login)}></Route>
-                <Route path="/admin" component={withAuth(Admin)}></Route>
+                </div>
 
-
-
-            </BrowserRouter>
 
 
     );

@@ -1,62 +1,147 @@
-import React ,{ useRef, useEffect,useState}from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import axios from 'axios'
 import renderHTML from 'react-render-html';
 import PostsNew from './PostsNews';
 import Pagination from '../components/Pagination';
 import { useDispatch, useSelector } from "react-redux";
-import Modal from 'react-modal';
-import close from '../assets/image/close.png'
 import { BrowserRouter, Route, Link } from "react-router-dom";
+import spnoibat from '../assets/image/spnoibat.png'
+import ScrollAnimation from 'react-animate-on-scroll';
+import doitac from '../assets/image/doitac1.png'
+import doitac2 from '../assets/image/doitac2.png'
 
-const customStyles = {
-    content : {
-      width                 : '70%',
-      height                : '70%',
-      top                   : '50%',
-      left                  : '50%',
-      right                 : 'auto',
-      bottom                : 'auto',
-      marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)',
-      opacity: '80%',
-      background:'linear-gradient(90deg, rgba(41,37,105,1) 0%, rgba(22,21,117,1) 33%, rgba(15,85,158,1) 65%, rgba(10,137,163,1) 100%)',
-    }
-  };
-function News(props){
- // const listnews= useSelector(state => state.reducerNews.data);
+
+
+const text='Trước đó, Tổng Công ty Xây dựng Sài Gòn đã có văn bản số 495/SGCC-TCNS đề nghị UBND quận 1 tính số tiền trợ cấp thôi việc cho ông Đoàn Ngọc Hải (xin thôi việc từ ngày 9/9/2019) đối với quá trình công tác tại UBND quận 1 và chuyển số tiền trên cho Tổng công ty Xây dựng Sài Gòn TNHH Một thành viên để chi trả cho ông Đoàn Ngọc Hải.'
+function News(props) {
+  // const listnews= useSelector(state => state.reducerNews.data);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(3);
+  const [check, setCheck] = useState(false);
 
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = props.listnews.slice(indexOfFirstPost, indexOfLastPost);
- 
-  // Change page
-  const paginate = pageNumber => setCurrentPage(pageNumber);
 
 
-useEffect(()=>{
-  
-},[])
+  useEffect(() => {
+    if (window.outerWidth <= 676) {
+      setCheck(true)
+    }
+  }, [])
+const styleh1={ maxWidth: '80%', margin: '0 auto' }
+  return (
+    <div ref={props.refs} className='news'>
+      <hr className='hr-news'></hr>
 
-return(
-<div ref={props.refs} className='news'>
-<hr className='hr-news'></hr>
-  <div >
-<p ref={props.refs} style={{color:'gray'}}>Tin tức</p>
-    <PostsNew posts={currentPosts}  />
-      <Pagination
-        postsPerPage={postsPerPage}
-        totalPosts={props.listnews.length}
-        paginate={paginate}
-      />
-  
-  </div>
-     
-</div>
-)
+
+      <ScrollAnimation animateIn='flipInY'
+        animateOut='flipOutY'>
+        {check === true ? <div>
+          <div class="row m-0 p-0">
+            <div className="col-lg-6 " >
+
+              <p className="p-0 m-0" style={{ maxWidth: '80%', margin: '0 auto' }} class="text-justify ">{text}</p>
+
+              <div style={{ maxWidth: '80%', margin: '0 auto' }} className="row">
+                <div className="col-lg-6">
+                  <h3>KYC - KNOW YOUR CUSTOMER/ CLIENT	</h3>
+                  <p class="text-justify ">{text}</p>
+
+                </div>
+                <div className="col-lg-6">
+                  <h3>Tổng Công ty Xây dựng Sài Gòn</h3>
+                  <p  class="text-justify ">{text}</p>
+
+                </div>
+              </div>
+            </div>
+            <div style={{ padding: 0 }} className="col-lg-6 p-0" >
+              <img style={{ height: '60vmin' }} src={spnoibat} className="img-responsive"></img>
+            </div>
+          </div>
+          <hr className='hr-news'></hr>
+          <div class="row m-0 p-0">
+            <div className="col-lg-6 " >
+
+              <p className="p-0 m-0" style={{ maxWidth: '80%', margin: '0 auto' }} class="text-justify img-responsive">{text}</p>
+              <div style={{ maxWidth: '80%', margin: '0 auto' }} className="row">
+                <div className="col-lg-6">
+                  <h4>TẦM NHÌN -SỨ MỆNH</h4>
+                  <p  class="text-justify ">>{text}</p>
+
+                </div>
+                <div className="col-lg-6">
+                  <h4>Tổng Công ty Xây dựng Sài Gòn</h4>
+                  <p  class="text-justify ">>{text}</p>
+
+                </div>
+              </div>
+            </div>
+            <div style={{ padding: 0 }} className="col-lg-6 p-0" >
+              <img style={{ height: '60vmin' }} src={spnoibat} className="img-responsive"></img>
+            </div>
+          </div>
+        </div>
+          //check wind0w.width
+          :
+
+          <div >
+            <div class="row m-0 p-0">
+              <div  className="col-lg-6 p-0" >
+                <h1  style={styleh1}>KYC - KNOW YOUR CUSTOMER/ CLIENT				</h1>
+                <p className="p-0 m-0" style={{ maxWidth: '80%', margin: '0 auto' }} class="text-justify img-responsive">{text}</p>
+                <div style={{ maxWidth: '80%', margin: '0 auto' }} className="row">
+                  <div  className="col-lg-6 pl-0">
+                    <img style={{ height: '10vmin' }} src={doitac} className="img-responsive"></img>
+                    <h4>Tổng Công ty KYC</h4>
+                    <p  class="text-justify ">{text}</p>
+
+                  </div>
+                  <div className="col-lg-6 pr-0">
+                    <img style={{ height: '10vmin' }} src={doitac} className="img-responsive"></img>
+
+                    <h4>Tổng Công ty KYC</h4>
+                    <p  class="text-justify ">{text}</p>
+                  </div>
+                </div>
+              </div>
+              <div style={{ padding: 0 }} className="col-lg-6 p-0 text-center" >
+                <img style={{ height: '60vmin' }} src={spnoibat} className="img-responsive"></img>
+              </div>
+            </div>
+            <hr className='hr-news'></hr>
+            <div class="row m-0 p-0">
+
+              <div style={{ padding: 0 }} className="col-lg-6 p-0 text-center" >
+                <img style={{ height: '60vmin' }} src={spnoibat} className="img-responsive"></img>
+              </div>
+              <div className="col-lg-6 " >
+                <h1  style={styleh1}>TẦM NHÌN - SỨ MỆNH</h1>
+                <p style={{ maxWidth: '80%', margin: '0 auto' }} class="text-justify ">{text}</p>
+                <div style={{ maxWidth: '80%', margin: '0 auto' }} className="row">
+                  <div className="col-lg-6 pl-0">
+                  <img style={{ height: '10vmin' }} src={doitac} className="img-responsive "></img>
+
+                    <h4>Tổng Công ty KYC</h4>
+                    <p  class="text-justify ">{text}</p>
+
+                  </div>
+                  <div className="col-lg-6 pr-0">
+                  <img style={{ height: '10vmin' }} src={doitac} className="img-responsive"></img>
+
+                    <h4>Tổng Công ty KYC</h4>
+                    <p  class="text-justify ">{text}</p>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>}
+
+
+      </ScrollAnimation>
+    </div>
+  )
 }
 export default News
