@@ -67,7 +67,7 @@ const fontsize={fontFamily:' Avenir, Helvetica, Arial, sans-serif',fontSize:20}
 
 <Switch>
 <Route exact path='/' render={()=><Index listSlider={props.listSlider} listnews={props.listnews}  />}/>
-<Route  path='/about' component={() => <h1>Về chúng tôi</h1>}/>
+<Route  path='/about' component={() => <About/>}/>
 </Switch>
 
 

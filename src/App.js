@@ -61,10 +61,13 @@ function App() {
 
                 <BrowserRouter >
           
-            
-                <Route  path="/login" component={withAuthLogin(Login)}></Route>
-                <Route exact  path="/admin" component={withAuth(Admin)}></Route>
-                <Route exact  path='/' render={() => <Navigation listSlider={listSlider} listnews={listnews} />} />
+            <Switch>
+
+                <Route exact  path="/login" component={withAuthLogin(Login)}></Route>
+                <Route   path="/admin" component={withAuth(Admin)}></Route>
+                <Route   path='/' component={() => <Navigation listSlider={listSlider} listnews={listnews} />} />
+                                
+            </Switch>
                 </BrowserRouter>
 
                 </div>
