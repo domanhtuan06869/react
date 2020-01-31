@@ -51,7 +51,7 @@ function Header(props){
 let {id}=useParams()
 
 return(
-<div style={style}  className='header'>
+<div  className='header'>
 <Modal      
         closeTimeoutMS={1000}
           isOpen={showModal}

@@ -1,5 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:300,400,700,900");
-
+.customeTheme {
+  color: #1B1162 !important;
+  background-color:#fff !important;
+  &.place-top {
+  &:after {
+  border-top-color: orange !important;
+  border-top-style: solid !important;
+  border-top-width: 6px !important;
+  }
+  }
+ }
 .menu-item {
   padding: 0 40px;
   margin: 5px 10px;

@@ -13,13 +13,8 @@ function Footer(props) {
     }, [])
 
     return (
-        <ScrollAnimation animateIn='flipInX'
-            afterAnimatedIn={function afterAnimatedIn(v) {
-                var t = "Animate In finished.\n";
-                t += 'v.onScreen: ' + v.onScreen + '\n';
-                t += 'v.inViewport: ' + v.inViewport;
-
-            }}>
+        <ScrollAnimation animateIn='bounceInRight'
+        animateOut='bounceOutLeft'>
             <div ref={props.refs} className='div-footer'>
                 <div className='footer-item'>
                     <img src={kyc}></img>

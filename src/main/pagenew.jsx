@@ -29,86 +29,57 @@ function Header(props) {
     const [showModal, setShowModal] = useState(false)
     const [intro, setIntro] = useState('')
     const [contenNews, setContenNews] = useState()
-    const project=useRef(null)
-    function openModal() {
-        setShowModal(true)
-    }
 
-
-    function closeModal() {
-        setShowModal(false)
-    }
-    async function getIntro() {
-        const result = await axios('/getIntroduction')
-        setIntro(result.data.content)
-    }
     async function getOneNews() {
 
         const result = await axios('/getOneNews?id=' + props.match.params.id)
 
         setContenNews(result.data.content)
-        project.current.scrollIntoView({ behavior: "auto" })
+
+
+    }
+    async function getClickOneNews(id) {
+
+        const result = await axios(`/getOneNews?id=${id}` )
+
+        setContenNews(result.data.content)
 
 
     }
     useEffect(() => {
-        getOneNews()
-        getIntro()
+    getOneNews()
+     //   getIntro()
 
 
     }, [])
+    const stylecol = { borderStyle: 'dashed', borderColor: '#1B1162', borderWidth: 0.5, color: '#06204A', backgroundColor: '#E8F1F9',marginTop:20 }
 
     return (
         <div className='Main'>
-            <BrowserRouter>
-            <Route exact  path="/" component={<h1>erro</h1>}></Route>
-            </BrowserRouter>
-            <div className='header'>
-                <Modal
-                    closeTimeoutMS={1000}
-                    isOpen={showModal}
-                    onRequestClose={closeModal}
-                    style={customStyles}
-                    contentLabel="Example Modal"
-                >
-
-                    <img className='mdclose' src={close} style={{ float: 'right' }} onClick={() => closeModal()}></img>
-                    <p style={{ textAlign: 'justify', color: 'white', marginTop: '6%' }}>{intro}</p>
-
-                </Modal>
-
-                <img style={{ width: '100%' }} src={backgr}></img>
-                <button onClick={() => openModal()} className='btn-xemthem'>Xem thêm</button>
-                <div ref={project}  className='box-header'>
-
-
-                    <div className='item-box-header' id='item-box-header1'>
-                        <img className='img-box-header' src={icon1}></img>
-                        <h5 className='title-box-header'>Các dự án tiêu biểu</h5>
-                        <p className='content-box-header'>This should be used to tell a story and let your users know a l</p>
-
+            <div  style={{paddingTop:20}}  className='container'>
+                <div className="row">
+                    <div className="col-lg-8">
+                    {renderHTML(contenNews == undefined ? '<h1 class="text-center mw-100">Loading</h1>' : '' + contenNews + '')}
                     </div>
-                    <div className='item-box-header' id='item-box-header2'>
-                        <img className='img-box-header' src={icon2}></img>
-                        <h5 className='title-box-header'>Tin tức & sự kiện</h5>
-                        <p className='content-box-header'>This should be used to tell a story and let your users know a l</p>
-                    </div>
-                    <div className='item-box-header' id='item-box-header3'>
-                        <img className='img-box-header' src={icon3}></img>
-                        <h5 className='title-box-header'>Liên hệ</h5>
-                        <p className='content-box-header'>This should be used to tell a story and let your users know a l</p>
-                    </div>
+                    {contenNews == undefined ? null :   <div style={{marginTop:29}} className="col-lg-4" >
+                        <h2 style={{backgroundColor:'#06204A',color:'#fff'}} className="text-center">Dự án khác</h2>
+                        <NavLink onClick={()=>getClickOneNews('5e0173368c29f90d94ed9ee7')} to={{ pathname: `/project/5e007fb12d4110337c7615b7` }}>
+                      <h1 style={stylecol} className="text-center">Sơn Hà</h1>
 
+                        </NavLink>
+              
+
+                      <h1 style={stylecol} className="text-center">Nosa</h1>
+                      <h1 style={stylecol} className="text-center">Huy Hoàng</h1>
+                    </div> }
+                 
                 </div>
-            </div>
-            <div   className='page-news'>
-                <div style={{maxWidth:900, margin:'0 auto'}}>
-                {renderHTML(contenNews == undefined ? '<h1>Loading</h1>' : '' + contenNews + '')}
-                </div>
+               
+           
               
             </div>
 
-            <Footer></Footer>
+           {contenNews == undefined ? null : <Footer></Footer>}
         </div>
     )
 }

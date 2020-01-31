@@ -10,8 +10,8 @@ import ScrollMenu from 'react-horizontal-scrolling-menu';
 
 const MenuItem = ({ text, selected }) => {
     return <div key={text}
-      
-    > <img style={{ height: 100,marginLeft:10,marginRight:10 }}  src={text}></img></div>;
+
+    > <img style={{ height: 100, marginLeft: 10, marginRight: 10 }} src={text}></img></div>;
 };
 
 // All items component
@@ -20,7 +20,7 @@ const Menu = (list, selected) =>
     list.map(el => {
         const { imagecustomer } = el;
 
-        return <MenuItem text={imagecustomer}  selected={selected} />;
+        return <MenuItem text={imagecustomer} selected={selected} />;
     });
 
 
@@ -55,30 +55,29 @@ function Body(props) {
     }, [])
 
 
-const menu=Menu(customer,selected);
+    const menu = Menu(customer, selected);
     return (
         <div ref={props.refs} className='body'>
-            <ScrollAnimation animateIn='fadeIn'
-                animateOut='fadeOut'>
+            <ScrollAnimation animateIn='bounceInRight'
+                animateOut='bounceOutLeft'>
                 <ScrollAnimation animateIn='flipInY'
                     animateOut='flipOutY'>
                     <p style={{ marginTop: 20 }}>CÁC ĐỐI TÁC CỦA CHÚNG TÔI</p>
                 </ScrollAnimation>
 
-        
-                
-            <ScrollMenu
-          data={menu}
-          arrowLeft={ArrowLeft}
-          arrowRight={ArrowRight}
-          selected={selected}
-          onSelect={onSelect}
-          alignCenter={true}
-          transition={0.5}
-          alignOnResize={true}
-       
-        />
-        
+
+
+                <ScrollMenu
+                    data={menu}
+                    arrowLeft={ArrowLeft}
+                    arrowRight={ArrowRight}
+                    selected={selected}
+                    onSelect={onSelect}
+                    alignCenter={true}
+                    alignOnResize={true}
+
+                />
+
 
             </ScrollAnimation>
 

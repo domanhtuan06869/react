@@ -7,7 +7,7 @@ import Testimonials from '../components/Testimonials'
 import Boxfrom from '../components/Boxform'
 import Footer from '../components/Footer'
 import axios from 'axios'
-
+import {Animated} from "react-animated-css";
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 992 })
@@ -31,8 +31,6 @@ function Index(props) {
   const messagesEndRef=useRef(null)
   const box=useRef(null)
   const project=useRef(null)
-  window.addEventListener('keydown', downHandler);
-  window.addEventListener('keyup', upHandler);
   function scrollToBottom () {
     messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
   }
@@ -46,8 +44,7 @@ function Index(props) {
 
 
     return () => {
-      window.removeEventListener('keydown', downHandler);
-      window.removeEventListener('keyup', upHandler);
+
 
     };
   }, []);
@@ -55,59 +52,9 @@ function Index(props) {
 
   },[])
 
-  async function downHandler({ key }) {
-
-    /*if (key === 'ArrowDown') {
-      if (count === 0) {
-        count++
-        window.scrollTo({
-          top: 1000,
-          behavior: 'auto'
-        })
-      }
-      else if (count === 1) {
-        count++
-        window.scrollTo({
-          top: 1800,
-          behavior: 'auto'
-        })
-      } else if (count = 2) {
-        count++
-        window.scrollTo({
-          top: 2500,
-          behavior: 'auto'
-        })
-      }
-    }*/
-  }
-  async function upHandler({ key }) {
- /*   if (key === 'ArrowUp') {
-      if (count === 1) {
-        count--
-        window.scrollTo({
-          top: 50,
-          behavior: 'auto'
-        })
-      } else if (count === 2) {
-        window.scrollTo({
-          top: 1000,
-          behavior: 'auto'
-        })
-        count--
-      } else if (count === 3) {
-        window.scrollTo({
-          top: 1700,
-          behavior: 'auto'
-        })
-        count--
-      }
-    }*/
-   
-  }
-
 
   return (
-    
+    <Animated animationIn="bounceInRight" animationOut="fadeOut" isVisible={true}>
     <div className='Main'>
       <Desktop>
         <Header sc={scrollToBottom} scb={scrollToBox}  scproject={scrollToProject} ></Header>
@@ -139,6 +86,7 @@ function Index(props) {
 
 
     </div>
+    </Animated>
   )
 }
 export default Index
