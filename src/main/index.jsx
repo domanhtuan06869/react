@@ -48,9 +48,7 @@ function Index(props) {
 
     };
   }, []);
-  useEffect(()=>{
 
-  },[])
 
 
   return (

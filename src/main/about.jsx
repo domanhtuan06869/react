@@ -65,7 +65,7 @@ function About(props) {
             </div>
           </div>
 
-          <InputForm></InputForm>
+          <InputForm col={'col-lg-4'}></InputForm>
 
         </div>
       </div>

@@ -4,7 +4,7 @@ import color from '@material-ui/core/colors/brown'
 import Swal from "sweetalert2";
 import axios from 'axios'
 
-const Input=()=>{
+const Input=({col})=>{
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [number, setNumber] = useState('')
@@ -69,12 +69,11 @@ const Input=()=>{
             setCheckPhone('Số điện thoại chưa đúng kiểu')
         } else {
            // postContact()
-
         }
     }
  return(
 
-    <div className=" col-lg-4 justify-content-md-center ">
+    <div className={`${col} justify-content-md-center`}>
     <h4>Liên Hệ Ngay</h4>
     <div class="form-group">
       <label for="formGroupExampleInput">Name</label>
@@ -93,7 +92,7 @@ const Input=()=>{
     </div>
     <div class="form-group">
       <label for="formGroupExampleInput3">Lời nhắn</label>
-      <input type="number" class="form-control"  onChange={(e)=>setDescription(e.target.value)}  placeholder="Lời nhắn" />
+      <input type="text" class="form-control"  onChange={(e)=>setDescription(e.target.value)}  placeholder="Lời nhắn" />
       <div style={{color:'red',fontSize:10}}>{checkDescription}</div>
     </div>
     <div class="form-group">

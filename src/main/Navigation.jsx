@@ -8,6 +8,8 @@ import About from './about'
 import Project from './project'
 import Aproject from './pagenew'
 import Product from './product'
+import News from './news'
+
 
 import { Animated } from "react-animated-css";
 
@@ -56,7 +58,7 @@ function Navigation(props) {
               <NavLink to="/project" >
                 <a style={fontsize} class="nav-link" >Dự án đã thực hiện</a>
               </NavLink >
-              <NavLink to="/product">
+              <NavLink to="/news">
                 <a style={fontsize} class="nav-link" >Tin tức tuyển dụng</a>
               </NavLink>
               <li class="nav-item">
@@ -74,8 +76,9 @@ function Navigation(props) {
           <Route exact path='/' render={() => <Index listSlider={props.listSlider} listnews={props.listnews} />} />
           <Route path='/about' component={() => <About />} />
           <Route path='/project' component={() => <Project />} />
-          <Route path='/project/aa/:id' component={Aproject} />
           <Route path='/product' component={Product} />
+          <Route path='/news' component={News} />
+
         </Switch>
 
       </div>

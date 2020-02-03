@@ -1,33 +1,38 @@
 import React, { useRef, useState, useEffect } from 'react'
 import Footer from '../components/Footer'
+import backgr from '../assets/image/header.png'
+import close from '../assets/image/close.png'
 import axios from 'axios'
-import { BrowserRouter, HashRouter, NavLink, Route, Link, Switch } from "react-router-dom";
-import FormInput from '../components/InputForm'
+import InputForm from '../components/InputForm'
 import renderHTML from 'react-render-html';
+import { BrowserRouter, HashRouter, NavLink, Route, Link, Switch } from "react-router-dom";
+import UpdateTeams from '../componentsAdmin/UpDateCb'
+
 
 function Header(props) {
     const [showModal, setShowModal] = useState(false)
-    const [project, setProject] = useState([])
+    const [news, setNews] = useState([])
     const [contenNews, setContenNews] = useState()
 
-    async function getOneProject() {
+    async function getOneNews() {
 
-        const result = await axios('/getOneProject?id=' + props.match.params.id)
-        const resultproject = await axios('/getProject')
+        const result = await axios('/getOneNews?id=' + props.match.params.id)
+        const resultNews = await axios('/getNews')
+        setNews(resultNews.data)
         setContenNews(result.data.content)
-        setProject(resultproject.data)
 
 
     }
     async function getClickOneNews(id) {
-        setContenNews(undefined)
-        const result = await axios('/getOneProject?id='+id)
+
+        const result = await axios(`/getOneNews?id=${id}`)
+
         setContenNews(result.data.content)
 
 
     }
     useEffect(() => {
-        getOneProject()
+        getOneNews()
         //   getIntro()
 
 
@@ -43,18 +48,14 @@ function Header(props) {
                     </div>
                     {contenNews == undefined ? null : <div style={{ marginTop: 29 }} className="col-lg-4" >
                         <h2 style={{ backgroundColor: '#06204A', color: '#fff' }} className="text-center">Dự án khác</h2>
-                        {project.map((item) => (
-                            <NavLink  onClick={() => getClickOneNews(item._id)} to={{ pathname: `/project/${item._id}` }}>
-                                <h1 style={stylecol} className="text-center">{item.name}</h1>
+                        {news.map((item) => (
+                            <NavLink onClick={() => getClickOneNews(item._id)} to={{ pathname: `/news/${item._id}` }}>
+                                <h1  style={stylecol} className="text-center">{item.title}</h1>
                             </NavLink>
                         ))}
-                        <FormInput></FormInput>
+                        <InputForm></InputForm>
                     </div>}
-
                 </div>
-
-
-
             </div>
 
             {contenNews == undefined ? null : <Footer></Footer>}
