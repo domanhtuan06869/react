@@ -22,7 +22,7 @@ function Footer(props) {
                         Công ty Cổ phần Giải Pháp Phần Mềm KYC</p>
                 </div>
                 <div className='footer-item'>
-                    <h3>Out adress</h3>
+                    <h3>Our address</h3>
                     <p style={{ color: 'gray', fontSize: 14 }}>Suite 502, 5th Floor, No.03 Chua Lang St, Dong Da Dist, Ha Noi, Viet Nam</p>
                 </div>
 

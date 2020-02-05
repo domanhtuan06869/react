@@ -43,8 +43,8 @@ function Product(props) {
                 <ScrollAnimation animateIn='bounceInRight'
                     animateOut='bounceOutLeft'>
                       
-                    <div className="row justify-content-md-center">
-                        <h1>SẢN PHẨM-CUNG CẤP DỊNH VỤ</h1>
+                    <div style={{marginTop:20}} className="row justify-content-md-center">
+                        <h1 style={{fontSize:24}}>SẢN PHẨM-CUNG CẤP DỊCH VỤ</h1>
                     </div>
                     <div className="row justify-content-md-center ">
 
@@ -57,7 +57,7 @@ function Product(props) {
                             ))}
                  
                     </div>
-                    <div className="row justify-content-md-center ">
+                    <div style={{marginTop:30}} className="row justify-content-md-center">
                         <InputForm col='col-lg-4'></InputForm>
                     </div>
                 </ScrollAnimation>

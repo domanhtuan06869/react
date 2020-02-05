@@ -54,33 +54,14 @@ function Index(props) {
   return (
     <Animated animationIn="bounceInRight" animationOut="fadeOut" isVisible={true}>
     <div className='Main'>
-      <Desktop>
+
         <Header sc={scrollToBottom} scb={scrollToBox}  scproject={scrollToProject} ></Header>
         <Body  refs={project} listSlider={props.listSlider}></Body>
         <News listnews={props.listnews} refs={box}></News>
         <Testimonials></Testimonials>
         <Boxfrom ></Boxfrom>
         <Footer refs={messagesEndRef}></Footer>
-      </Desktop>
 
-      <Tablet>
-      <Header sc={scrollToBottom} scb={scrollToBox}  scproject={scrollToProject} ></Header>
-        <Body  refs={project} listSlider={props.listSlider}></Body>
-        <News listnews={props.listnews}  refs={box}></News>
-        <Testimonials></Testimonials>
-        <Boxfrom ></Boxfrom>
-        <Footer refs={messagesEndRef}></Footer>
-
-      </Tablet>
-
-      <Mobile>
-      <Header sc={scrollToBottom} scb={scrollToBox}  scproject={scrollToProject} ></Header>
-        <Body  refs={project} listSlider={props.listSlider}></Body>
-        <News listnews={props.listnews}  refs={box}></News>
-        <Testimonials ></Testimonials>
-        <Boxfrom ></Boxfrom>
-        <Footer refs={messagesEndRef}></Footer>
-      </Mobile>
 
 
     </div>

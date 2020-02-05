@@ -5,13 +5,9 @@ import InputForm from '../components/InputForm'
 import NewsDetail from './newsDetail'
 import Footer from '../components/Footer'
 import axios from 'axios'
-import spnoibat from '../assets/image/spnoibat.png'
 import { Animated } from "react-animated-css";
 import { BrowserRouter, Route, Link, Switch, NavLink } from "react-router-dom";
 import ScrollAnimation from 'react-animate-on-scroll';
-
-
-
 
 function News(props) {
     const [news, setNews] = useState([])
@@ -36,20 +32,16 @@ function News(props) {
     const About = () => {
         const stylecol = { borderStyle: 'dashed', borderColor: '#1B1162', borderWidth: 0.5, color: '#06204A', backgroundColor: '#E8F1F9', fontSize: 20, padding: 5 }
         return (
-
-
             <div style={{ paddingBottom: 30 }} class="container">
                 <Header></Header>
                 {
                     news.length === 0 ? null : (
                         <ScrollAnimation animateIn='bounceInRight'
                             animateOut='bounceOutLeft'>
-                            <div className="row justify-content-md-center">
-
-                                <h1>Tin Tức-Tuyển dụng</h1>
-
+                            <div style={{ marginTop: 20 }} className="row justify-content-md-center">
+                                <h1 style={{ fontSize: 24 }}>TIN TỨC-TUYỂN DỤNG</h1>
                             </div>
-                            <div className="row justify-content-md-center ">
+                            <div style={{ marginTop: 10 }} className="row justify-content-md-center ">
                                 {news.map((item) => (
                                     <div className="col-lg-6 ">
                                         <Link style={{ textDecoration: 'none' }} to={{ pathname: `/news/${item._id}` }} >
@@ -57,12 +49,9 @@ function News(props) {
                                         </Link>
                                     </div>
                                 ))}
-
-
                             </div>
-                            <div className="row justify-content-md-center ">
+                            <div style={{ marginTop: 40 }} className="row justify-content-md-center ">
                                 <InputForm col='col-lg-4'></InputForm>
-
                             </div>
                         </ScrollAnimation>
                     )

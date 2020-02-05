@@ -42,11 +42,25 @@ const Input=({col})=>{
         setCheckName(null)
         setCheckEmail(null)
         setCheckPhone(null)
+        setCheckDescription(null)
         setEmail('')
         setName('')
         setNumber('')
+        setDescription('')
         swal()
 
+    }).catch((err)=>{
+      if(err){
+        alert('thất bại')
+        setCheckName(null)
+        setCheckEmail(null)
+        setCheckPhone(null)
+        setCheckDescription(null)
+        setEmail('')
+        setName('')
+        setNumber('')
+        setDescription('')
+      }
     })
 }
 
@@ -54,16 +68,18 @@ const Input=({col})=>{
         var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
         var phone = vnf_regex.test(number)
         var checkemail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
-        if (name === '') { setCheckName('không để trống tên') }
-        if (email === '') { setCheckEmail('không để trống email') }
-        if (number === '') { setCheckPhone('không để trống số điện thoại') }
-        if (description === '') { setCheckDescription('không để trống lời nhắn') }
+        if (name === '') { setCheckName('Không để trống tên') }
+        if (email === '') { setCheckEmail('Không để trống email') }
+        if (number == '') { setCheckPhone('Không để trống số điện thoại') }
+        if (description === '') { setCheckDescription('Không để trống lời nhắn') }
         if (name != '') { setCheckName(null) }
         if (email != '') { setCheckEmail(null) }
         if (number != '') { setCheckPhone(null) }
-        if (description != '') { setCheckPhone(null) }
-        if (name === '' || email === '' || number === ''||description==='') {
-        } else if (checkemail == false) {
+        if (description != '') { setCheckDescription(null) }
+        if (name === '' || email === '' || number == ''||description==='') {
+          setCheckPhone('không để trống số điện thoại')
+        } 
+        else if (checkemail == false) {
             setCheckEmail('Email viết chưa đúng kiểu')
         } else if (phone == false) {
             setCheckPhone('Số điện thoại chưa đúng kiểu')

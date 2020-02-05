@@ -41,7 +41,7 @@ function Header(props) {
                     <div className="col-lg-8">
                         {renderHTML(contenNews == undefined ? '<h1 class="text-center mw-100">Loading</h1>' : '' + contenNews + '')}
                     </div>
-                    {contenNews == undefined ? null : <div style={{ marginTop: 29 }} className="col-lg-4" >
+                    { <div style={{ marginTop: 29 }} className="col-lg-4" >
                         <h2 style={{ backgroundColor: '#06204A', color: '#fff' }} className="text-center">Dự án khác</h2>
                         {project.map((item) => (
                             <NavLink  onClick={() => getClickOneNews(item._id)} to={{ pathname: `/project/${item._id}` }}>
@@ -57,7 +57,7 @@ function Header(props) {
 
             </div>
 
-            {contenNews == undefined ? null : <Footer></Footer>}
+            { <Footer></Footer>}
         </div>
     )
 }

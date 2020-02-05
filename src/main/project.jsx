@@ -46,8 +46,8 @@ function Project(props) {
                 {project.length === 0 ? null :
                     <ScrollAnimation animateIn='bounceInRight'
                         animateOut='bounceOutLeft'>
-                        <div className="row justify-content-md-center">
-                            <h1>DỰ ĐÃ THỰC HIỆN</h1>
+                        <div style={{marginTop:20}} className="row justify-content-md-center">
+                            <h1 style={{fontSize:24}}>DỰ ĐÃ THỰC HIỆN</h1>
                         </div>
                         <div className="row justify-content-md-center ">
 
@@ -59,7 +59,7 @@ function Project(props) {
                                 </div>
                             ))}
                         </div>
-                        <div className="row justify-content-md-center ">
+                        <div style={{marginTop:30}} className="row justify-content-md-center ">
                             {project.length === 0 ? null : <InputForm col='col-lg-4'></InputForm>}
                         </div>
                     </ScrollAnimation>

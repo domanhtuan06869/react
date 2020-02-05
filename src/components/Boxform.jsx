@@ -12,6 +12,7 @@ function Boxfrom(props) {
     async function getTopNews(){
         const result=await axios('/getTopNews')
         setTopNews(result.data)
+        console.log(result.data)
     }
     useEffect(()=>{
         getTopNews()
@@ -22,7 +23,7 @@ function Boxfrom(props) {
         animateOut='bounceOutLeft'>
  
             <div style={{ paddingBottom: 30, paddingTop: 20 }} class="container">
-                <div class="row justify-content-md-center ">
+                <div class="row justify-content-md-center p-1">
               
                     <div className="pl-0 col-lg-8 p-0">
                         <h4>Tin tức nổi bật</h4>
@@ -33,7 +34,7 @@ function Boxfrom(props) {
                               <img class="card-img-top img-fluid img-responsive " src={spnoibat} alt="Card image cap" />
                               <div class="card-body">
                                   <h5 class="card-title">{item.title}</h5>
-                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                  <p class="card-text">{item.description.length<=100?item.description:item.description.slice(0, 95)+'...'}</p>
                               </div>
                           </div>
                       </div>

@@ -35,8 +35,8 @@ const styleh1={ maxWidth: '80%', margin: '0 auto' }
       <hr className='hr-news'></hr>
 
 
-      <ScrollAnimation animateIn='flipInY'
-        animateOut='flipOutY'>
+      <ScrollAnimation animateIn='bounceInRight'
+        animateOut='bounceOutLeft'>
         {check === true ? <div>
           <div class="row m-0 p-0">
             <div className="col-lg-6 " >

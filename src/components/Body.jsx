@@ -1,8 +1,6 @@
 import React, { useRef, useEffect, useState, Suspense } from 'react'
 
 import axios from 'axios'
-import doitac from '../assets/image/doitac1.png'
-import doitac2 from '../assets/image/doitac2.png'
 import Slide from '../components/Slide'
 import ScrollAnimation from 'react-animate-on-scroll';
 import ScrollMenu from 'react-horizontal-scrolling-menu';
@@ -39,7 +37,7 @@ const ArrowRight = Arrow({ text: '>', className: 'arrow-next' });
 
 function Body(props) {
     const [customer, setCustomer] = useState([])
-    const [selected, setSelected] = useState('item1')
+    const [selected, setSelected] = useState('')
 
     async function getCustomer() {
         const result = await axios('/getCustomer')
@@ -73,8 +71,9 @@ function Body(props) {
                     arrowRight={ArrowRight}
                     selected={selected}
                     onSelect={onSelect}
-                    alignCenter={true}
+             //       alignCenter={true}
                     alignOnResize={true}
+               //     hideArrows={false}
 
                 />
 

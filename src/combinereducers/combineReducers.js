@@ -6,9 +6,6 @@ const combine=combineReducers({
     reducerTeam:reducerTeam,
     reducerNews:reducerNews,
     reducerSlider:reducerSlider
-
-
-
 })
   
 

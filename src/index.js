@@ -12,7 +12,7 @@ import thunk from "redux-thunk";
 import reducer from '../src/combinereducers/combineReducers'
 import registerServiceWorker,{unregister} from '../src/componentsAdmin/registerServiceWorker';
 const store = createStore(reducer, applyMiddleware(thunk));
-ReactDOM.render(  <Provider store={store}>
+ReactDOM.render(<Provider store={store}>
     <App />
   </Provider>, document.getElementById('root'));
   registerServiceWorker()
