@@ -52,7 +52,7 @@ function Body(props) {
         getCustomer()
     }, [])
 
-
+// đây là phần hiển thị ảnh đối tác
     const menu = Menu(customer, selected);
     return (
         <div ref={props.refs} className='body'>

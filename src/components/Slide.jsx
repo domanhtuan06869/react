@@ -10,7 +10,7 @@ import "../assets/css/style.css";
 import "../assets/css/slider-animations.css";
 
 function Slide({listSlider}){
-
+/// phần này hình như bỏ rồi ko dùng tới nữa
  
 return(
 

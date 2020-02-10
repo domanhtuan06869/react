@@ -27,6 +27,8 @@ function Testimonisls(props) {
 
 
   }, [])
+
+  // đây là phần dự án nổi bật. nhiều cái class ko trùng vs nội dung lắm do phần sau t viết lại từ đầu nên chưa đổi tên.
   const styleimg = { borderStyle: 'dashed', borderColor: '#1B1162', backgroundColor: '#02c0dd', borderWidth: 0.5 }
   return (
     <ScrollAnimation animateIn='bounceInRight'

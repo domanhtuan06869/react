@@ -6,10 +6,9 @@ import axios from 'axios'
 import InputForm from '../components/InputForm'
 import renderHTML from 'react-render-html';
 import { BrowserRouter, HashRouter, NavLink, Route, Link, Switch } from "react-router-dom";
-import UpdateTeams from '../componentsAdmin/UpDateCb'
+ /// đây lầ trang chi tiết của tin tức mới
 
-
-function Header(props) {
+function NewDetail(props) {
     const [showModal, setShowModal] = useState(false)
     const [news, setNews] = useState([])
     const [contenNews, setContenNews] = useState()
@@ -61,4 +60,4 @@ function Header(props) {
         </div>
     )
 }
-export default Header
+export default NewDetail

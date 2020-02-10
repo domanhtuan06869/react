@@ -8,7 +8,7 @@ import DataTable from 'react-data-table-component';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 var data;
-
+/// Mấy cái có tên file rõ như này tự hiểu :))
 function Contact(props){
   const [listContact,setListContact]=useState([])
   const [loading, setLoading] = useState(false);
@@ -99,6 +99,8 @@ let dttr=[{name:'',email:'',number:''}]
 
   return result;
 }
+
+// cái này export xcel nè
 function downloadCSV(array) {
   const link = document.createElement('a');
   let csv = convertArrayOfObjectsToCSV(array);

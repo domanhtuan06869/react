@@ -3,6 +3,8 @@ import React, { useRef, useState } from 'react'
 import color from '@material-ui/core/colors/brown'
 import Swal from "sweetalert2";
 import axios from 'axios'
+//
+/// đây là phần input from liên hệ dùng chung
 
 const Input=({col})=>{
     const [name, setName] = useState('')

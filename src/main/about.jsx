@@ -9,23 +9,7 @@ import spnoibat from '../assets/image/spnoibat.png'
 import { Animated } from "react-animated-css";
 
 
-const Desktop = ({ children }) => {
-  const isDesktop = useMediaQuery({ minWidth: 992 })
-
-  return isDesktop ? children : null
-}
-const Tablet = ({ children }) => {
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 991 })
-  return isTablet ? children : null
-}
-const Mobile = ({ children }) => {
-  const isMobile = useMediaQuery({ maxWidth: 767 })
-  return isMobile ? children : null
-}
-
 function About(props) {
-
-
   useEffect(() => {
     return () => {
     };

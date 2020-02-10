@@ -110,7 +110,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
+////// Trang này chứa phần khung của trang admim và chứa các router của admin
 function Admin(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
@@ -287,10 +287,15 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
           </IconButton>
         </div>
         <Divider />
-        <List><MainListItems color={{colorHome:colorHome,colorContact:colorContact,
-          colorCustomer:colorCustomer,colorCustomer,colorNews:colorNews,colorSlider:colorSlider}} > </MainListItems></List>
+        <List>
+      {/* cái main listitem  Chứa các phần để click chuyển component nhé*/}
+          <MainListItems color={{colorHome:colorHome,colorContact:colorContact,
+          colorCustomer:colorCustomer,colorCustomer,colorNews:colorNews,colorSlider:colorSlider}} > </MainListItems>
+          </List>
         <Divider />
-        <List><SecondaryListItems color={{colorTeam:colorTeam,colorInfo:colorInfo}}></SecondaryListItems></List>
+        <List>
+              {/*cả cái này nữa cũng như CÁI TRÊN*/}
+          <SecondaryListItems color={{colorTeam:colorTeam,colorInfo:colorInfo}}></SecondaryListItems></List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />

@@ -3,7 +3,7 @@ import icon1 from '../assets/image/icon1.png'
 import icon2 from '../assets/image/icon2.png'
 import icon3 from '../assets/image/icon3.png'
 function BoxHeader(props){
-    
+    ///phần này đã bỏ
 return(
 <div className='box-header'>
 

@@ -36,6 +36,8 @@ function Navigation(props) {
 
   }, [])
   const fontsize = { fontFamily: ' Avenir, Helvetica, Arial, sans-serif', fontSize: 17, fontWeight: 'bold' }
+
+   // cái này gọi tới các component con của trang chính và trang con nhé
   return (
     <BrowserRouter>
 

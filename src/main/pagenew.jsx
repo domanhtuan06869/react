@@ -4,8 +4,8 @@ import axios from 'axios'
 import { BrowserRouter, HashRouter, NavLink, Route, Link, Switch } from "react-router-dom";
 import FormInput from '../components/InputForm'
 import renderHTML from 'react-render-html';
-
-function Header(props) {
+ //đây là trang chi tiết của dự án mới
+function pagenew(props) {
     const [showModal, setShowModal] = useState(false)
     const [project, setProject] = useState([])
     const [contenNews, setContenNews] = useState()
@@ -23,8 +23,6 @@ function Header(props) {
         setContenNews(undefined)
         const result = await axios('/getOneProject?id='+id)
         setContenNews(result.data.content)
-
-
     }
     useEffect(() => {
         getOneProject()
@@ -61,4 +59,4 @@ function Header(props) {
         </div>
     )
 }
-export default Header
+export default pagenew

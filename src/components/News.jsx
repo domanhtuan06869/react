@@ -29,6 +29,8 @@ function News(props) {
       setCheck(true)
     }
   }, [])
+
+  /// đây là phần giới thiệu về công ti ở trang home nhé
 const styleh1={ maxWidth: '80%', margin: '0 auto' }
   return (
     <div ref={props.refs} className='news'>

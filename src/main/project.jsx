@@ -11,7 +11,7 @@ import { BrowserRouter, Route, Link, Switch, NavLink } from "react-router-dom";
 import ScrollAnimation from 'react-animate-on-scroll';
 
 
-
+//Trang dự án
 
 function Project(props) {
     const [project, setProject] = useState([])

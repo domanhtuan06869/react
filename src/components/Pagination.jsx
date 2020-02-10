@@ -6,7 +6,7 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pageNumbers.push(i);
   }
-
+/// cái này vs cái PostNews.jsx là cái dùng để chuyển trang
   return (
       <ul className='pagination'>
         {pageNumbers.map(number => (

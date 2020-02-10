@@ -27,7 +27,7 @@ var toolbarOptions = [
 
   ['clean']                                         // remove formatting button
 ];
-
+/// cái này đã bỏ ko dùng
 export default class Secret extends Component {
   constructor() {
     super();

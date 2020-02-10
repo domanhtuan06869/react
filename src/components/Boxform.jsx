@@ -17,6 +17,8 @@ function Boxfrom(props) {
     useEffect(()=>{
         getTopNews()
     },[])
+  
+  //đây là phần tin tức nổi bật
     const text = 'Trước đó, Tổng Công ty Xây dựng Sài Gòn đã có văn bản số 495/SGCC-TCNS đề nghị UBND quận 1 tính số tiền trợ cấp thôi việc cho ông Đoàn Ngọc Hải (xin thôi việc từ ngày 9/9/2019) đối với quá trình công tác tại UBND quận 1 và chuyển số tiền trên cho Tổng công ty Xây dựng Sài Gòn TNHH Một thành viên để chi trả cho ông Đoàn Ngọc Hải.'
     return (
         <ScrollAnimation animateIn='bounceInRight'
