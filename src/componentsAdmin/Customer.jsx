@@ -1,13 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react'
 import close from '../assets/image/close.png'
 import 'react-quill/dist/quill.snow.css';
-import ReactQuill, { Quill } from 'react-quill';
 import axios from 'axios'
 import Modal from 'react-modal';
-import Add from '@material-ui/icons/Add';
-import qs from 'qs'
-import DataTable from 'react-data-table-component';
-import IconButton from '@material-ui/core/IconButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons'
 import DeleteIcon from '@material-ui/icons/Delete';

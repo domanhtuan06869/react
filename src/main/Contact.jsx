@@ -5,43 +5,26 @@ import InputForm from '../components/InputForm'
 import NewsDetail from './newsDetail'
 import Footer from '../components/Footer'
 import axios from 'axios'
-import { Animated } from "react-animated-css";
-import { BrowserRouter, Route, Link, Switch, NavLink } from "react-router-dom";
 import ScrollAnimation from 'react-animate-on-scroll';
 import imgmap from '../assets/image/mapkey.png'
 
 
 
 function Contact(props) {
-    const [news, setNews] = useState([])
-    async function getNews() {
-        const result = await axios('/getNews')
-        setNews(result.data)
-    }
+
     useEffect(() => {
-        getNews()
         return () => {
-            setNews([])
+          
         };
     }, []);
-
-    const Header = () => {
-        return (
-            <div style={{ height: 300, backgroundColor: 'blue' }} className="row justify-content-md-center">
-                <h1 style={{ color: '#fff' }}> Ảnh mô tả</h1>
-            </div>
-        )
-    }
-
     const stylecol = { borderStyle: 'dashed', borderColor: '#1B1162', borderWidth: 0.5, color: '#06204A', backgroundColor: '#E8F1F9', fontSize: 20, padding: 5 }
 
     return (
         <div>
-
             <div className="container">
                 <ScrollAnimation animateIn='bounceInRight'
                     animateOut='bounceOutLeft'>
-                    <div style={{ marginBottom: 40 }} className="row justify-content-md-center ">
+                    <div style={{ marginBottom: 40,marginTop:20}} className="row justify-content-md-center ">
                         <div className="col-lg-4">
                             <h4 className="text-center">icon</h4>
                             <h1 className="text-center" style={stylecol}>Head Officie</h1>

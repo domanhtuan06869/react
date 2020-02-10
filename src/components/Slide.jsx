@@ -10,23 +10,17 @@ import "../assets/css/style.css";
 import "../assets/css/slider-animations.css";
 
 function Slide({listSlider}){
-
- 
 return(
-
 <div   className='body-product' >
 <Slider className="slider-wrapper"  autoplay={3000}>
       {listSlider.map((item, index) => (
       <div key={item._id} className='body-product' >
       <div className='product'>
       <img  class="card-img-top img-responsive" src={item.UrlImage} alt="Card image cap" />
-      
       </div>
-  
   </div>
       ))}
     </Slider>
-    
     </div>
 
 

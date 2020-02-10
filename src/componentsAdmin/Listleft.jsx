@@ -38,12 +38,12 @@ export const  MainListItems =({color})=> (
   </ListItem>
   </NavLink>
 
-  <NavLink style={{color:color.colorSlider}} to='/slider'>
+  <NavLink style={{color:color.colorSlider}} to='/project'>
   <ListItem button>
     <ListItemIcon>
       <LayersIcon htmlColor={color.colorSlider}  lightingColor={color.colorSlider} />
     </ListItemIcon>
-    <ListItemText primary="Quản lí Slider" />
+    <ListItemText primary="Dự án" />
   </ListItem>
   </NavLink>
 

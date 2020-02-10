@@ -10,7 +10,6 @@ import UpdateTeams from '../componentsAdmin/UpDateCb'
 
 
 function Header(props) {
-    const [showModal, setShowModal] = useState(false)
     const [news, setNews] = useState([])
     const [contenNews, setContenNews] = useState()
 
@@ -26,15 +25,12 @@ function Header(props) {
     async function getClickOneNews(id) {
         setContenNews(undefined)
         const result = await axios(`/getOneNews?id=${id}`)
-
         setContenNews(result.data.content)
 
 
     }
     useEffect(() => {
         getOneNews()
-        //   getIntro()
-
 
     }, [])
     const stylecol = { borderStyle: 'dashed', borderColor: '#1B1162', borderWidth: 0.5, color: '#06204A', backgroundColor: '#E8F1F9', fontSize: 20, padding: 5 }
@@ -50,14 +46,14 @@ function Header(props) {
                         <h2 style={{ backgroundColor: '#06204A', color: '#fff' }} className="text-center">Tin khác</h2>
                         {news.map((item) => (
                             <NavLink onClick={() => getClickOneNews(item._id)} to={{ pathname: `/news/${item._id}` }}>
-                                <h1  style={stylecol} className="text-center">{item.title}</h1>
+                                <h1 style={stylecol} className="text-center">{item.title}</h1>
                             </NavLink>
                         ))}
                         <InputForm></InputForm>
                     </div>
                 </div>
             </div>
-             <Footer></Footer>
+            <Footer></Footer>
         </div>
     )
 }

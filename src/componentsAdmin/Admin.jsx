@@ -10,6 +10,8 @@ import Chart from '../componentsAdmin/Chart'
 import Slider from '../componentsAdmin/SliderManager'
 import UpdateInfomation from '../componentsAdmin/UpdateInfomation'
 import UpdateTeams from '../componentsAdmin/UpDateCb'
+import Project from '../componentsAdmin/Project'
+
 
 
 
@@ -205,7 +207,7 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
         setColorInfo('#3C3C3C')
 
       }
-      else if(props.location.hash==='#/slider'){
+      else if(props.location.hash==='#/project'){
         setColorContact('#3C3C3C')
         setColorHome('#3C3C3C')
         setColorNews('#3C3C3C')
@@ -278,8 +280,7 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
         classes={{
           paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
         }}
-        open={open}
-      >
+        open={open} >
         <div style={{backgroundColor:'#101E59',height:'8.8%'}} className={classes.toolbarIcon}>
           <h1  style={{marginTop:'4%',color:'white'}}>KYC</h1>
           <IconButton onClick={handleDrawerClose}>
@@ -305,6 +306,8 @@ const [colorInfo,setColorInfo]=useState('#3C3C3C')
                       <Route path='/slider' render={(props) => <Slider setColor={setColorRouter} />}/>
                       <Route path='/updateinfomation' render={(props) => <UpdateInfomation setColor={setColorRouter} />}/>
                       <Route path='/updateteam' render={(props) => <UpdateTeams setColor={setColorRouter} />}/>
+                      <Route path='/project' render={(props) => <Project setColor={setColorRouter} />}/>
+
 
           </Switch>
             

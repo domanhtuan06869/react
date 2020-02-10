@@ -163,12 +163,7 @@ function NewsAdmin(props) {
       setDescription(description)
       setContent(content)
       setUrlImage(image)
-
     }
-
-
-
-
   }
   function closeModal() {
     setShowModal(false)
